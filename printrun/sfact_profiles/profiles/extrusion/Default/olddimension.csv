@@ -1,0 +1,17 @@
+Format is tab separated olddimension settings.
+_Name                          	Value
+WindowPosition	700+0
+Open File for OldDimension	
+Activate Volumetric Extrusion (Stepper driven Extruders)	False
+Filament Diameter (mm):	2.8
+Filament Packing Density (ratio) lower=more extrusion:	1.0
+Are You Calibrating?	False
+Measured Width of Extrusion:	0.5
+Retraction Distance (millimeters):	1.0
+Restart Extra Distance (millimeters):	0.0
+Extruder Retraction Speed (mm/s):	15.0
+Force to retract when crossing over spaces	True
+Minimum Extrusion before Retraction (millimeters):	1.0
+Minimum Travelmove after Retraction (millimeters):	1.0
+in Absolute units	True
+in Relative units	False

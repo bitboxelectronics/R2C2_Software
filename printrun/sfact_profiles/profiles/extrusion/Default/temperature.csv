@@ -1,0 +1,14 @@
+Format is tab separated temperature settings.
+_Name                          	Value
+WindowPosition	700+0
+Open File for Temperature	
+Activate Temperature:	False
+Cooling Rate (Celcius/second):	100
+Heating Rate (Celcius/second):	100
+Base Temperature (Celcius):	185
+Interface Temperature (Celcius):	185
+Object First Layer Infill Temperature (Celcius):	185
+Object First Layer Perimeter Temperature (Celcius):	185
+Object Next Layers Temperature (Celcius):	185
+Support Layers Temperature (Celcius):	185
+Supported Layers Temperature (Celcius):	185
