@@ -1,0 +1,15 @@
+<?xml version="1.1" encoding="utf-8"?>
+<machines>
+  <machine name="Cartesian Simulator">
+    <geometry type="cartesian">
+      <axis id="x" length="300" maxfeedrate="1000" scale="11.4485"/>
+      <axis id="y" length="300" maxfeedrate="1000" scale="11.4485"/>
+      <axis id="z" length="300" maxfeedrate="100" scale="320"/>
+    </geometry>
+    <tools>
+    </tools>
+    <driver class="fabman.driver.simulator.CartesianSimulator"> 
+      <speedup>20</speedup>
+    </driver>
+  </machine>
+</machines>

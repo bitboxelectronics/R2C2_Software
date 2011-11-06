@@ -1,0 +1,26 @@
+#!/bin/sh
+
+cd `dirname $0`
+
+
+CLASSPATH=lib/ReplicatorG.jar:lib:lib/build:lib/j3dcore.jar:lib/jcommon-1.0.16.jar:lib/miglayout-3.7.4.jar:lib/quaqua.jar:lib/twitter4j-2.0.10.jar:lib/j3dutils.jar:lib/jfreechart-1.0.13.jar:lib/mrj.jar:lib/RXTXcomm.jar:lib/vecmath.jar:lib/filedrop.jar
+export CLASSPATH
+
+# put the directory where this file lives in the front of the path, because
+# that directory also contains jikes, which we will need at runtime.
+#
+PATH=`pwd`/tools:${PATH}
+export PATH
+
+MACHINE=`uname -m`
+
+# put the directory with the native RXTX libs in the library path
+LD_LIBRARY_PATH=`pwd`/lib-${MACHINE}:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH
+
+if [ ${http_proxy} ]; then
+  PROXY=`echo -n -e ${http_proxy} | sed -n 's/http:\/\/\([^:]\+\):\([1234567890]\+\)/-DproxySet=true -DproxyHost=\1 -DproxyPort=\2/p'`
+  java $PROXY replicatorg.app.Base "$@"
+else
+  java replicatorg.app.Base "$@"
+fi
