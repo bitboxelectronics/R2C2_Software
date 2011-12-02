@@ -1,2 +1,0 @@
-Todos are now maintained on our issue tracker:
-http://replicatorg.lighthouseapp.com/tickets
