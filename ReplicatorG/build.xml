@@ -303,7 +303,7 @@
       <fileset dir="${dist.dir}/tools"/>
     </copy>
     <zip
-       destfile="dist/${release.name}-windows.tgz"
+       destfile="dist/${release.name}-windows.zip"
        basedir="${target.dir}/..">
     </zip>
   </target>
