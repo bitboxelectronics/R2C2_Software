@@ -1,0 +1,423 @@
+0027 ReplicatorG
+* Fan changes to support ABP on Mk7 hardware (using Firmware 3.1 or newer only)
+* Individual axis disable added
+* Merged dualstrusion branch tools, fixed some bugs in references
+* Merged in temperature_log branch, for using M310 to start a temperature log, and M311 to end logging
+* Added fix for reading bed temperature to the current machine model. 
+* Added logging for HeatedBuildPlatform, to use add 'hbp_log=true' to the tool attributes in
+* your tool of choice within machines/thingomatic.xml
+* Fixed localization problems for decimal formatting
+* Updated Replicat.org MCode and GCode documentation
+* Added off-line documentation from replicat.org
+* Added a Thingiverse menu item, just for fun!
+* Removed 'autoload last file' if replicatorG crashed (to avoid auto-crashing)
+* added 'Upgraded' TOM Filament guide to the upgrades menu
+* added production test scripts to File | Scripts | Utility
+* Added fixes for skeinforge lockups, where skeinforge timeout locks the main program
+* Added correct G0 behavior for MakerBot series machines
+* Added checks so build to SD card fails gracefully on error
+* Fixed lockup problem when a nonexistant toolhead is selected
+* Fixed problems for build to SD fallback defaults causing problems
+* Removed skeinforge 31 from toolpath options
+* Added skeinforge 40 (experimental) and skeinforge 44 (experimental) to toolpath options
+* Added a warning check for unrecognized GCode commands on print
+* Fixed misc. window resize problems
+* Fixed toolhead selection problems for some Heated Build Platform problems with dualstrusion
+* Renaming some features or clarity, removed some dead features/gui elements
+* Full testing of Dualstrusion, refactoring of DualStrusion codebase
+* Several bugfixes for null object cases
+* re-enabled right-click menu
+
+
+0026 ReplicatorG
+* Add Machine information panel
+* Add support for control of a regulated cooling fan
+* Bugfix: save operation was broken by the color change feature.
+* Bugfix: Don't force refresh of machine position, because this caused
+problems with concurrent move requests.
+* Add color selector dialog to preferences, to allow model &
+background color to be configured.
+* Clarification: fix homing comments for thing-o-matic start.gcode
+* Bugfix: handle multiple stepper toolheads correctly
+* Add tool command recognition to the s3g decompiler.
+* Add virtual printer, to make testing easier
+* Add experimental cupcake profile for gen3 machines with stepper extruders.
+* display 2 digits of precision in the control panel's axis position indicator.
+* Revert "Update launch4j version. Need to build on a windows box to
+upgrade ReplicatorG.exe"
+* Actually, don't make continuous jog default, it would break printers
+that don't support it.
+* Make continuous jog mode the default preference.
+
+0025 ReplicatorG
+New features:
+* Print-O-Matic integrated and enabled by default
+* Store/recall home position support: No more need to modify start.gcode when your Z height changes.
+* Drag & Drop support: drop .stl or .gcode files into ReplicatorG to open them.
+* Frostruder support for Thing-O-Matic
+* Support for local firmware.xml files (file:// urls)
+* Support for internet proxies, using the default Java proxy configuration.
+* Added Skeinforge 40, for experimental purposes
+* Updates to most core libraries
+* Skeinforge 35 is now default
+* Wipe commands removed from cupcake profiles
+* HPB default temperature lowered to 110 degrees
+
+Bug fixes:
+* Rewritten gcode execution engine: fixes many bugs, such as 'gcode parser is null'
+* Homing feedrate specified in machine profile
+* Numerous Ultimaker, RaMPS, and RepRap improvements
+* Numerous UI tweaks to improve look&feel on OS X
+* Resize main window so tooltips don't refresh the whole view
+
+
+0024 ReplicatorG
+* Support for stepper-based extruders on G4 hardware
+* Early reversal for stepper-driven extruders
+* 5-axis motion commands for G4 hardware
+* More example objects and scripts
+* Build temperature monitoring reenabled
+* Number of UI cleanups
+* Skeinforge 39 introduced as experimental
+* Improved extruder status reporting
+* Several memory leaks solved
+* 64-bit platform fixes for Mac OS X, x86_64
+* Added s3g decompilation script
+* Startup info dump to aid debugging
+* Continuous jog and motion stop commands
+* Improved Ultimaker support
+* Support for legacy RepRap firmware
+* Improvements to serial layer
+* Scale field reflects mouse scaling factor
+* Skeinforge 31 reintroduced for Ultimaker
+
+0023 ReplicatorG
+* Bugfix release
+* Fix machine profiles to handle correct endstops and platform sizes
+* Fix too-hot 0006 TOM profiles
+* Added emergency stop button to control panel
+* Readded raft checkbox on Skeinforge 0006
+* Removed Skeinforge 31
+
+
+0022 ReplicatorG
+* UI for selecting basic skeinforge options
+* Fix: Numerous fixups to connection, disconnection, initialization,
+  post-upload and post-simulation behavior
+* Fix: update firmware list immediately on URL change
+* Optional icons for boards in uploader
+* Machines.xml banished; machine descriptors are now broken up among files in
+  the repg/machines and ~/.replicatorg/machines directories
+* Preference panel ui to control logging level
+* Experimental: multiple extruder support
+Contributions:
+* justjoheinz: added profile delete button
+* nazdravi: check for "python2" for compatibility on systems which default to python 3.x
+* Erik: added 5D driver for RepRap's and compatible firmwares (Ultimaker)
+* Erik: improved feedback during skeining operations
+* Erik: STL preview now is the actual build volumes configured in machines.xml
+* Charles: Added skeinforge 33
+* Charles: Support for G10 and friends
+* Marius: Added generalized skeinforge merge patch
+* Marius: Added skeinforge 35
+* Marius: Added build platform belt checkbox to control panel
+* Erik: Pre-seeds the extruder PWM and RPM as configured in machines.xml
+* Rob: RepRap 5D driver checksum, linenumber and manual extrude support. Various RepRap 5D driver bug fixes.
+* Marius: Added support for wait-for-platform
+* Nick Starno: paraminator script
+* Robert Giseburt: several integration fixes for OS X
+* Marius, Charles, Nick, Rob Gilson, and others: lots of hard skeinforge configuration work!
+
+0021 ReplicatorG
+Bugfix release
+* Refactored controller/driver interaction to move buffer-full retries to controller responsibilities
+* Do not send stop packet on program exit when quitting ReplicatorG
+Contributions:
+* justjoheinz: turn off control panel and build menu options when disconnected
+* charlespax: skeinforge tweaks (checkin of Nick Starno's code)
+
+
+0020 ReplicatorG
+Removed:
+* Took out temperature monitoring
+New features:
+* Pulled in skeinforge 31
+* Adding new profiles for skeinforge 31
+* Added support for v2.5 extruder firmware:
+  * Support for motor controller swapping
+  * Support for mosfet channel reassignment
+Other changes:
+* Improving handling for CRC failures
+Contributions:
+* chlunde: Edge mode on 'e' keypress re-enabled
+* Miles Lightwood, Eberhard Rensch, koenkooi:
+  created/backported raftless to skeinforge
+* Charles Pax: new profiles, machines.xml entry for thingomatic
+* justjoheinz: about box fix
+
+0019 ReplicatorG
+New features:
+* Undo/Redo
+* Support for unicorn toolhead (Thanks to Zeeshan M.)
+* Better Mac build (thanks Zaggo)
+* ABP build profile support
+* MkV extruder build profile support
+* Support for new 2.4 extruder features (separate HBP PID settings)
+* Fixes longstanding Z-axis move breakout issue; continuous xyz motion
+  limiting should work properly now
+* Alpha .obj file importer
+* Alpha .dae file importer
+
+
+New features:
+* Model can now be manipulated and saved
+* Model translation
+* Model scaling
+* Model rotation
+* Model reflection
+* Autocentering
+* New Windows launcher
+* Save model prompt when generating a toolpath
+* Tabs indicate object modification status
+* Explicit python path preference
+* Allow user choice of python installation
+Contributions:
+* Mikko Sivulainen (paeaetech): better estimation for SD uploads
+* Mikko Sivulainen (paeaetech): improved serial selection handling
+* GitHub user Nazdravi: basic HTTP proxy support on Linux
+
+0017 ReplicatorG
+* New features:
+** STL files can now be directly loaded and previewed
+** Skeinforge 0006 integrated with some simple profiles; STL files
+   can now be sliced from within ReplicatorG
+** Build concept now encapsulates a gcode slice and an STL model
+** Fixed numerous Mac interface issues
+** Multiple profiles in skeinforge 0006 (Charles Pax)
+* Bug fixes:
+** Better handling for 0-length payloads (Aaron Colwell)
+** Fix for Mac build issues (Rick Kimball)
+
+0016 ReplicatorG
+* New features:
+** Rearranged control panel to better suit machines with small screens
+** Added temperature monitoring graph to control panel
+
+0015 ReplicatorG
+* Bug fixes:
+* * gh-44: "Save As" now works as expected
+* * New files now work as expected
+* * gh-35: No longer resetting machine at startup
+* * gh-33: Removed separate concept of current position from
+*   gcode parser
+* New features:
+* * gh-42: arc resolution is now controllable via preferences
+* * gh-40: valve/fan outputs renamable in machines.xml.
+* * gh-39: frostruder support.
+* * gh-37: messages are now color-coded and timestamped
+* * gh-32: preference for default sketch at start time
+* * Support for tuning the PID parameters on the extruder
+*   controller
+* * Automatically checks servers for new versions
+* * Better shutdown and interrupt behavior
+
+0014 ReplicatorG
+* Many small stability fixes
+* Faster startup
+* Working serial timeouts on Windows and Mac OS X
+* Support for new onboard preferences for Motherboard and Extruder Controller
+* Fixes for a number of Linux and Mac display issues
+* Fix for firmware upload source pref
+* The text field in the control panel are now also handled when hitting "Enter"/"Return" (not only when focus is lost).
+
+0013 ReplicatorG
+* Added ability to phone home for new firmware
+* Improved uploading; no longer need to hit reset on EC or MBs with jumpers
+* New cut of drivers, toolchains
+* Now checks firmware version upstream and warns of old versions
+
+0012 ReplicatorG
+* Added support for v1.8 extruder firmware; dynamically generates
+  thermistor table and uploads to extruder firmware
+
+0011 ReplicatorG
+
+* Support for heated build platform
+* On startup, ReplicatorG now not only prints the Motherboard's firmware version on the console, but also the Extruder controller's firmware version
+* Estimating no longer sends tweets
+* Upgraded twitter4j library to 2.0.10 
+
+0010 ReplicatorG
+
+* Status panel responses improved
+* Added images for set home/go home buttons
+* Reconcilles position after builds
+* Connect button added
+* Autoscan defaults to disabled
+* Display machine's name, if set
+* Disable simulation in preferences
+* Build to file (to local SD card, for instance)
+* Removed post-build resets
+
+00091 ReplicatorG
+
+* Integrated Rick Pollack's TwitterBot code
+
+0009 ReplicatorG
+
+* Moved to Swing file selector
+* Remember last opened directory
+* Scrolling on lists in uploader, SD card file selector
+* Bundled gen3 firmware v1.5 (SD card improvements)
+* Bundled gen3 firmware v1.6 (PID control for heater)
+* Close control panel on build start
+* Only one control panel available at a time
+* Added disconnect and control panel buttons
+
+0008 ReplicatorG
+
+* Added avrdude to distributions
+* Added firmware binaries and .xml
+* Added firmware uploader GUI
+* Support for building to named files on the SD card
+* Support for building from named files
+* Added reset machine button
+
+0007 ReplicatorG
+
+* Fix for issue 15 (credit to Charles Pax)
+* Adding constants for SD card write/playback commands
+* Basic testing support for SD card builds
+* Adding card capture api
+* Adding pausability to remote builds
+* Switching out gif for png with transparency
+* Refactor/prep for SD uploading
+* Button bar revision, interface prep for SD card prints
+* Fixed up startup window positioning
+* Removed preferences store/load race condition that was screwing up window sizing
+* moved some shutdown code out of handleQuit2 into proper shutdown hook
+* hide drivers marked 'experimental'
+* added preference for viewing experimental machine profiles
+* busy cursor on long loads
+* reduced load time for files in large directory
+* proper error messages for SD operations
+* added feature check to buttons (only display for 1.3)
+* removing skeinforge from 0007, now distributed seperately
+
+0006 ReplicatorG
+
+* Removed editor status bar
+* 64-bit Mac OS X fix (courtesy Andreas Fuchs)
+* Pass a GCode file in as a command-line parameter (courtesy Andreas Fuchs)
+* Moved machine status below buttons and cleaned up display
+* Ensure abort signal is sent to S3G on stop
+* Display temperature of nozzle during builds
+* Add pref for temperature display
+* Simulator2D optimizations, faster draws
+* Reenabled Ctrl-J shortcut for control panel
+* Use port names specified in XML by default, fall back to autoscan
+  if not present
+* Allow autoscan disabling for machines with scan problems
+* Added support for writing onboard configuration data to the machine EEPROM
+* Numerous small bug fixes
+
+0005 ReplicatorG
+
+* Large refactor; future maintenance should be simpler
+* Automatic scanning on serial ports for devices
+* Added dropdown for manual serial port selection
+* Multiple instances of ReplicatorG can now drive
+  several machines from a single computer
+* Consolidated some status bars
+* Implemented support for stopping, pausing
+* Moved to standard Java prefs; moving away from per-
+  platform messiness
+* Stripped out large swathes of old Processing code
+
+0004 ReplicatorG
+
+* more robust intialization
+* support for multiple sequential builds
+* added homing support, status checks, numerous small fixes to 3rd-gen driver
+* added home menus
+* added serial timeouts
+* added enable/disable stepper buttons to exerciser
+* number of small code refactor/cleanups
+* fixed rulers in simulator
+* new thread for initialization; new thread for machine status
+* added MRU cache and "recent" menu
+* adding prominent status bar to main window with driver/machine/connection information
+* adding check for v0002 firmware in 3rd-generation driver startup
+
+0003 ReplicatorG
+
+* created RepRap 3rd generation driver
+* fixed various bugs with serial port handling
+* fixed various bugs with threading, etc.
+* added support for PWM/RPM motor speeds
+* tweaked the build process quite a bit for mac / linux / windows.
+* added more build status information
+* created a modular configuration for various toolheads
+* bundled skeinforge for toolpath generation.
+
+0002 ReplicatorG
+
+* add units to simulation window
+* add proper bounds to simulation window
+* add warmup/cooldown to machine config
+* add simple exerciser / status window
+* add color to simulation window
+* add up/down arrows to simulation windows
+* implement Peter Edworthy ideas on driver instantiation
+* have simulation move to a proportional wait time
+* fix build time estimation
+* add estimate menu item
+* add basic machine configuration stuff to XML (axes, resolution, extruders, toolheads, clamps, etc.)
+* move to a controller/model/driver system.
+* Add an extruder section (temp, start/stop extruder, extruder direction, extruder speed)
+* added text boxes to control/display feedrate data
+* fix shutdown of driver
+* fix windows icons
+
+0001 Replicatorg
+
+* The first release of the IDE.  It will run your GCode files.  It's ugly, but it works.
+* convert from Arduino to ReplicatorG
+* get new app to build
+* convert .pde to .gcode
+* get GUI working reliably
+* create gcode running thread
+* create gcode simulation thread
+* create gcode simulation driver
+* get text-highlighting up and running
+* get machine driver-loading based on XML
+* update RunButtonWatcher to work with our running and/or simulating thread (obsolete)
+* move percentage / line count to bottom of window.
+* remove HandleNewLibrary
+* change 'Run' to 'Build'
+* get help menu up and running properly (send everyone to website)
+* add our ReplicatorG header to every file
+* implement support for various gcode pauses / prompts / etc.
+* change message dialog to yes/no dialog that allows you to cancel the operation
+* test build process on linux
+* test serialpassthrough driver
+* add simple simulation window
+* reformat GUI with different button ordering
+* create and add 'pause' button
+* update 'build' button graphic to be rotated 90 deg.
+* add support for rest of low-hanging m codes
+* finish implementation of ToolDrivers
+* add a processing driver to calculate build time, look for errors, etc.
+* finish gcode parsing for proper coordinates / machine status / etc.
+* change colors to RepRap green (thanks nick bilton!)
+* add elapsed time to build process
+* add confirmation alert after print finishes
+* add dispose after print finish
+* update serialpassthroughdriver to pull all config from XML file
+* update nulldriver to pull more config from XML file
+* tweak play / pause button behavior
+* get multi-print working solidly
+* fix random freezing bug (it seems to be working)
+* get inch support working
+* add support for rest of low-hanging g codes
+* make windows icons

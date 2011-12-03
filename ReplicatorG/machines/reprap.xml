@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="utf-8"?>
+<machines>
+	<machine experimental="0">
+		<name>RepRap 3D Printer</name>
+		<geometry type="cartesian">
+			<axis id="x" length="150" maxfeedrate="30000" stepspermm="80" endstops="min"/>
+			<axis id="y" length="150" maxfeedrate="30000" stepspermm="80" endstops="min"/>
+			<axis id="z" length="100" maxfeedrate="120" stepspermm="5000" endstops="min"/>
+		</geometry>
+		<tools>
+			<tool name="Stepper-based extruder" type="extruder" material="abs" motor="true" floodcoolant="false" mistcoolant="false" fan="true" valve="false" collet="false" heater="true" stepper_axis="a" motor_steps="1000" heatedplatform="true" />
+		</tools>
+		<clamps></clamps>
+		<firmware url="???" autoupgrade="false"></firmware>
+		<help name="Gcode Help" url="http://reprap.org/wiki/Gcode"></help>
+		<driver name="reprap5d">
+		    <okAfterResend>true</okAfterResend>
+		    <pulserts>false</pulserts>
+		    <waitforstart enabled="false"></waitforstart>
+		    <debugLevel>0</debugLevel>
+		    <fived>true</fived>
+		    <rate>9600</rate>
+		</driver>
+		<warmup>
+		</warmup>
+		<cooldown>
+		</cooldown>
+	</machine>
+</machines>
