@@ -104,9 +104,13 @@ public class PreviewPanel extends JPanel {
 		}
 		scene.detach();
 		scene = createSTLScene();
-		objectBranch = model.getGroup();
-		model.updateModelColor();
-		sceneGroup.addChild(objectBranch);
+		
+		if (model != null) {
+		  objectBranch = model.getGroup();
+		  model.updateModelColor();
+  		  sceneGroup.addChild(objectBranch);
+		}
+		
 		univ.addBranchGraph(scene);
 	}
 	
@@ -266,7 +270,7 @@ public class PreviewPanel extends JPanel {
 
 	public Shape3D makeBoxFrame(Point3d ll, Vector3d dim) {
         Appearance edges = new Appearance();
-        edges.setLineAttributes(new LineAttributes(3,LineAttributes.PATTERN_SOLID,true));
+        edges.setLineAttributes(new LineAttributes(1,LineAttributes.PATTERN_SOLID,true));
         edges.setColoringAttributes(new ColoringAttributes(.9f,1f,1f,ColoringAttributes.NICEST));
 		double[] coords = new double[wireBoxCoordinates.length];
 		for (int i = 0; i < wireBoxCoordinates.length;) {
@@ -345,7 +349,7 @@ public class PreviewPanel extends JPanel {
 	public Node makeBoundingBox() {
 
 		Group boxGroup = new Group();
-		// TODO: Change these dimensions if \it has a custom buid-volume! Display cut-outs?!
+		// TODO: Change these dimensions if \it has a custom build-volume! Display cut-outs?!
 		// Same for the platform
 		if(buildVol == null)
 		{
@@ -397,7 +401,7 @@ public class PreviewPanel extends JPanel {
     		double gridSpacing = 10.0; // Dim grid has hash marks at 10mm intervals.
     		// Set up the appearance object for the central crosshairs.
 	        Appearance crosshairAppearance = new Appearance();
-	        crosshairAppearance.setLineAttributes(new LineAttributes(3,LineAttributes.PATTERN_SOLID,true));
+	        crosshairAppearance.setLineAttributes(new LineAttributes(1,LineAttributes.PATTERN_SOLID,true));
 	        crosshairAppearance.setColoringAttributes(new ColoringAttributes(.9f,1f,1f,ColoringAttributes.NICEST));
 	        // Set up the crosshair lines
 	        LineArray crosshairLines = new LineArray(2*2,GeometryArray.COORDINATES);
@@ -558,11 +562,13 @@ public class PreviewPanel extends JPanel {
 
 	// These values were determined experimentally to look pretty dang good.
 	final static Vector3d CAMERA_TRANSLATION_DEFAULT = new Vector3d(0,0,290);
+	final static Vector3d ROTATION_CENTER_DEFAULT = new Vector3d(30,30,30);
 	final static double ELEVATION_ANGLE_DEFAULT = 1.278;
 	final static double TURNTABLE_ANGLE_DEFAULT = 0.214;
 	
 	final static double CAMERA_DISTANCE_DEFAULT = 300d; // 30cm
 	
+	Vector3d rotationCenter = new Vector3d(ROTATION_CENTER_DEFAULT);
 	Vector3d cameraTranslation = new Vector3d(CAMERA_TRANSLATION_DEFAULT);
 	double elevationAngle = ELEVATION_ANGLE_DEFAULT;
 	double turntableAngle = TURNTABLE_ANGLE_DEFAULT;
@@ -575,6 +581,12 @@ public class PreviewPanel extends JPanel {
 	}
 	
 //	double VIEW_SCALE = 100d;
+
+    private void updateVP(Vector3d v3d) {
+	  rotationCenter = v3d;
+	  updateVP();
+	}
+
 	private void updateVP() {
 		TransformGroup viewTG = univ.getViewingPlatform().getViewPlatformTransform();
 		Transform3D t3d = new Transform3D();
@@ -584,7 +596,7 @@ public class PreviewPanel extends JPanel {
 		trans.setTranslation(cameraTranslation);
 		Transform3D drop = new Transform3D();
 		Transform3D raise = new Transform3D();
-		drop.setTranslation(new Vector3d(0,0,50));
+		drop.setTranslation(rotationCenter);
 		raise.invert(drop);
 		rotX.rotX(elevationAngle);
 		rotZ.rotZ(turntableAngle);
@@ -596,8 +608,8 @@ public class PreviewPanel extends JPanel {
 		viewTG.setTransform(t3d);
 
 		if (Base.logger.isLoggable(Level.FINE)) {
-			Base.logger.fine("Camera Translation: "+cameraTranslation.toString());
-			Base.logger.fine("Elevation "+Double.toString(elevationAngle)+", turntable "+Double.toString(turntableAngle));
+			Base.logger.fine("Camera Translation: "+ cameraTranslation.toString());
+			Base.logger.fine("Elevation "+ Double.toString(elevationAngle)+", turntable "+Double.toString(turntableAngle));
 		}
 	}
 
@@ -653,6 +665,14 @@ public class PreviewPanel extends JPanel {
 	public void usePerspective(boolean perspective) {
 		univ.getViewer().getView().setProjectionPolicy(perspective?View.PERSPECTIVE_PROJECTION:View.PARALLEL_PROJECTION);
 	}
-
-
+	
+	public void setCenterRotation()
+	{
+		updateVP(new Vector3d(buildVol.getX() / 2, buildVol.getY() / 2, buildVol.getZ() / 2));
+	}
+	
+	public void setOriginRotation()
+	{
+		updateVP(new Vector3d(0,0,0));
+	}	
 }

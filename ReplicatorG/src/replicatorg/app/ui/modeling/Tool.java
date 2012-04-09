@@ -73,7 +73,11 @@ public abstract class Tool implements MouseMotionListener, MouseListener, MouseW
 	abstract JPanel getControls();
 	
 	final protected ToolPanel parent;
+	
+	protected DragMode mode; 
+
 	public Tool(ToolPanel parent) {
+	    mode = DragMode.ROTATE_VIEW;
 		this.parent = parent;
 	}
 
@@ -108,6 +112,17 @@ public abstract class Tool implements MouseMotionListener, MouseListener, MouseW
 	public void mouseMoved(MouseEvent e) {
 	}
 	public void mouseClicked(MouseEvent e) {
+	
+		button = e.getButton();
+		
+		if (button == MouseEvent.BUTTON1) { 
+			if (mode == DragMode.ROTATE_VIEW) {
+				mode = DragMode.TRANSLATE_VIEW; 
+			} else {
+				mode = DragMode.ROTATE_VIEW; 
+			}
+		}
+		
 	}
 	public void mouseEntered(MouseEvent e) {
 	}

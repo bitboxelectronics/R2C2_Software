@@ -39,7 +39,7 @@ public class EditingModel {
 		public Vector3d zAxis;
 		
 		public ReferenceFrame() {
-			origin = new Point3d();
+			origin = new Point3d(0,0,0);
 			zAxis = new Vector3d(0d,0d,1d);
 		}
 	}
