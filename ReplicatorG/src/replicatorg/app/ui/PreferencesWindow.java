@@ -60,7 +60,7 @@ public class PreferencesWindow extends JFrame implements GuiConstants {
 	JTextField logPathField;
 	
 	private void showCurrentSettings() {		
-		Font editorFont = Base.getFontPref("editor.font","Monospaced,plain,12");
+		Font editorFont = Base.getFontPref("editor.font","Monospaced,plain,14");
 		fontSizeField.setText(String.valueOf(editorFont.getSize()));
 		String firmwareUrl = Base.preferences.get("replicatorg.updates.url", FirmwareUploader.DEFAULT_UPDATES_URL);
 		firmwareUpdateUrlField.setText(firmwareUrl);
@@ -163,6 +163,7 @@ public class PreferencesWindow extends JFrame implements GuiConstants {
 		addCheckboxForPref(content,"Review GCode for potential toolhead problems before building","build.safetyChecks",true);
 		addCheckboxForPref(content,"Break Z motion into seperate moves (normally false)","replicatorg.parser.breakzmoves",false);
 		addCheckboxForPref(content,"Show starfield in model preview window","ui.show_starfield",false);
+		addCheckboxForPref(content,"Show axes","ui.show_axes",false);
 		addCheckboxForPref(content,"Notifications in System tray","ui.preferSystemTrayNotifications",false);
 		
 		JPanel advanced = new JPanel();
@@ -206,6 +207,23 @@ public class PreferencesWindow extends JFrame implements GuiConstants {
 		backgroundColorButton.setVisible(true);
 		content.add(backgroundColorButton,"wrap");
 		
+		JButton heatbedColorButton;
+		heatbedColorButton = new JButton("Choose heatbed color");
+		heatbedColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Note that this color is also defined in EditingModel.java
+				Color heatbedColor = new Color(Base.preferences.getInt("ui.heatbedcolor", 0));
+				heatbedColor = JColorChooser.showDialog(
+						null,
+		                "Choose Heatbed Color",
+		                heatbedColor);
+		                
+		        Base.preferences.putInt("ui.heatbedcolor", heatbedColor.getRGB());
+		        Base.getEditor().refreshPreviewPanel();
+			}
+		});
+		heatbedColorButton.setVisible(true);
+		content.add(heatbedColorButton,"wrap");
 		
 		content.add(new JLabel("Firmware update URL: "),"split");
 		firmwareUpdateUrlField = new JTextField(34);

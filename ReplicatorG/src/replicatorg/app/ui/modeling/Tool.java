@@ -83,18 +83,11 @@ public abstract class Tool implements MouseMotionListener, MouseListener, MouseW
 
 	protected Point startPoint = null;
 	protected int button = 0;
+	
 
 	public void mouseDragged(MouseEvent e) {
 		if (startPoint == null) return;
 		Point p = e.getPoint();
-		DragMode mode = DragMode.ROTATE_VIEW; 
-		if (Base.isMacOS()) {
-			if (button == MouseEvent.BUTTON1 && !e.isShiftDown()) { mode = DragMode.ROTATE_VIEW; }
-			else if (button == MouseEvent.BUTTON1 && e.isShiftDown()) { mode = DragMode.ROTATE_VIEW; }
-		} else {
-			if (button == MouseEvent.BUTTON1) { mode = DragMode.ROTATE_VIEW; }
-			else if (button == MouseEvent.BUTTON3) { mode = DragMode.ROTATE_VIEW; }
-		}
 		double xd = (double)(p.x - startPoint.x);
 		double yd = (double)(p.y - startPoint.y);
 		switch (mode) {

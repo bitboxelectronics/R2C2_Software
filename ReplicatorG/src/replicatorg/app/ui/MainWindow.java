@@ -2621,11 +2621,21 @@ ToolpathGenerator.GeneratorListener
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			// loading may take a few moments for large files
 
-			build = new Build(this, path);
+			build = new Build(this, path);				
 			setCode(build.getCode());
-			setModel(build.getModel());
+			setModel(build.getModel());			
+				
 			updateBuild();
+
+			if (getPreviewPanel().getModel() != null) {
+			  // Center and place object on Platform upon load		
+			  getPreviewPanel().getModel().center();
+			  getPreviewPanel().getModel().layFlat();
+			  getPreviewPanel().getModel().putOnPlatform();
+			}
+			
 			buttons.updateFromMachine(machineLoader.getMachine());
+			
 			if (null != path) {
 				handleOpenPath = path;
 				mruList.update(path);

@@ -403,7 +403,7 @@ public class EditingModel {
 		//translateObject(xoff, yoff, zoff);
 		translateObject((xoff + buildVol.getX()/2), (yoff  + buildVol.getY()/2), zoff);
 	}
-
+	
 	/**
 	 * Raise the object's lowest point to Z=0.
 	 */

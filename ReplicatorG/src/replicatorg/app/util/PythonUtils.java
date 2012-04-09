@@ -26,7 +26,7 @@ public class PythonUtils {
 	/**
 	 * Preference name for preferred Python path.
 	 */
-	final static String PYTON_PATH_PREF = "python.default_path";
+	final static String PYTHON_PATH_PREF = "python.default_path";
 	
 	/**
 	 * Callback for Python selector method.
@@ -96,17 +96,19 @@ public class PythonUtils {
 	 */
 	public static String getPythonPath(Version minVersion, Version maxVersion) {
 		// First, check if our cached python path, if any, meets the version requirements.
-		boolean versionOk = false;
+		boolean versionOk = false;	
+		
 		if (pythonVersion != null) {
+		
 			versionOk = true;
 			if (minVersion != null && pythonVersion.compareTo(minVersion) < 0) {
 				versionOk = false;
 			}
-			if (maxVersion != null && maxVersion.compareTo(pythonVersion) < 0) {
+			if (maxVersion != null && pythonVersion.compareTo(maxVersion) > 0) {
 				versionOk = false;
 			}
 		}
-		if (versionOk && pythonPath != null) {
+		if (versionOk && pythonPath != null) {	
 			return pythonPath;
 		} else {
 			pythonPath = null;
@@ -119,7 +121,8 @@ public class PythonUtils {
 		// Assemble a list of candidate paths.
 		// First, check if the user has explicitly set the Python path.
 		{
-			String path = Base.preferences.get(PYTON_PATH_PREF, null);
+			String path = Base.preferences.get(PYTHON_PATH_PREF, null);
+			
 			if (path != null) {
 				File candidate = new File(path);
 				if (candidate.exists()) {
@@ -127,6 +130,7 @@ public class PythonUtils {
 				}
 			}
 		}
+		
 		// Second, look in the system path.  This is the default solution for
 		// all platforms.
 		String paths[] = System.getenv("PATH").split(File.pathSeparator);
@@ -159,24 +163,27 @@ public class PythonUtils {
 			}
 		}
 		
+		/* run thru candidates and find min/max version 
 		for (String c : candidates) {
 			@SuppressWarnings("unused")
 			Version v = checkVersion(c,minVersion,maxVersion);
 		}
-		
+		*/
+				
+				
 		// Filter candidates by version
 		Vector<String> viableCandidates = new Vector<String>();
-		for (String candidate : candidates) {
-			Version v = checkVersion(candidate, minVersion, maxVersion);
+		for (String c : candidates) {
+			Version v = checkVersion(c, minVersion, maxVersion);
 			if (v != null) {
-				viableCandidates.add(candidate);
+				viableCandidates.add(c);
 			}
 		}
 		
 		if (selector != null && viableCandidates.size() > 1) {
 			String path = selector.selectPythonPath(viableCandidates);
 			if (path != null) {
-				Base.preferences.put(PYTON_PATH_PREF, path);
+				Base.preferences.put(PYTHON_PATH_PREF, path);
 				pythonPath = path;
 				pythonVersion = checkVersion(pythonPath);
 			}
@@ -228,7 +235,6 @@ public class PythonUtils {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			int returnCode = p.waitFor();
 			if (returnCode != 0) { return null; }
-	
 			String line = reader.readLine();
 			Pattern pattern = Pattern.compile("Python ([0-9]+)\\.([0-9]+)(?:\\.([0-9]+))?");
 			while (line != null) {
@@ -242,7 +248,7 @@ public class PythonUtils {
 				line = reader.readLine();
 			}
 		} catch (Exception e) {
-			Base.logger.log(Level.SEVERE,"Error attempting to detect python",e);
+			Base.logger.log(Level.INFO,"Error attempting to detect python.",e);
 		}
 		return null;
 	}
@@ -254,7 +260,20 @@ public class PythonUtils {
 	 */
 	public static boolean checkTkInter() {
 		if (getPythonPath() == null) { return false; }
-		ProcessBuilder pb = new ProcessBuilder(getPythonPath(),"-c","import Tkinter");
+		
+		// http://tkinter.unpythonic.net/wiki/
+		// Note: As of Python 3.0, Tkinter and related modules were replaced by the tkinter package. 
+		
+		String Tkinter_command;
+
+		if (pythonVersion.compareTo(new Version(3,0,0)) > 0) {
+		  Tkinter_command = "import tkinter";
+		} else {
+		  Tkinter_command = "import Tkinter";
+		}
+		
+		ProcessBuilder pb = new ProcessBuilder(getPythonPath(),"-c",Tkinter_command);
+
 		try {
 			Process p = pb.start();
 			int returnCode = p.waitFor();
@@ -295,6 +314,11 @@ public class PythonUtils {
 	public static boolean interactiveCheckVersion(Frame parent, String procedureName, Version min, Version max) {
 		getPythonPath(min,max);
 		Version v = pythonVersion;
+		
+		if (v == null) {
+		  Base.logger.log(Level.INFO,"You may have Python installed but it isn't within the required version range: " + min.toString() + " until " + max.toString());
+		}
+		
 		if (procedureName == null) { procedureName = "This operation"; }
 		if (v != null) {
 			if (min != null && min.compareTo(v) == 1) {
@@ -311,7 +335,7 @@ public class PythonUtils {
 			}
 			return true;
 		}
-		displayPythonErrorDialog(parent,procedureName+" requires that a Python interpreter be installed.");
+		displayPythonErrorDialog(parent,procedureName+" requires that a Python interpreter be installed. (Version " + min.toString() + " until " + max.toString() + ")");
 		return false;
 	}
 
@@ -343,7 +367,7 @@ public class PythonUtils {
 	 * Sets the new preferred place to find python
 	 */
 	public static void setPythonPath(String path) {
-		Base.preferences.put(PythonUtils.PYTON_PATH_PREF, path);
+		Base.preferences.put(PythonUtils.PYTHON_PATH_PREF, path);
 		pythonPath = path;
 	}
 }

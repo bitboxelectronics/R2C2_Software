@@ -294,8 +294,9 @@ public abstract class SkeinforgeGenerator extends ToolpathGenerator {
 		
 		// First check for Python.
 		boolean hasPython = PythonUtils.interactiveCheckVersion(parent,
-				name, new PythonUtils.Version(2, 5, 0),
-				new PythonUtils.Version(3, 0, 0));
+				name, 
+				new PythonUtils.Version(2, 5, 0),  // 2.5.0
+				new PythonUtils.Version(3, 0, 0)); // 3.0.0
 		if (!hasPython) {
 			return false;
 		}

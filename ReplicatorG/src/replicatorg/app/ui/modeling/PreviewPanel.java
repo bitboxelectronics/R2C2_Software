@@ -76,7 +76,7 @@ public class PreviewPanel extends JPanel {
 	
 	public void setModel(BuildModel buildModel) {
 		if (model == null || buildModel != model.getBuildModel()) {
-			if (buildModel != null) {
+			if (buildModel != null) {			
 				model = new EditingModel(buildModel, mainWindow);
 				setScene(model);
 			} else {
@@ -121,7 +121,7 @@ public class PreviewPanel extends JPanel {
 		if(mc instanceof Machine){
 			MachineModel mm = mc.getModel();
 			buildVol = mm.getBuildVolume();
-			Base.logger.fine("Dimensions:" + buildVol.getX() +','+ buildVol.getY() + ',' + buildVol.getZ());
+			Base.logger.fine("Dimensions:" + buildVol.getX() +','+ buildVol.getY() + ',' + buildVol.getZ());			
 		}
 	}
 	
@@ -319,9 +319,12 @@ public class PreviewPanel extends JPanel {
 	}
 		
 	private Shape3D makePlatform(Point3d lower, Point3d upper) {
-		Color3f color = new Color3f(.05f,.35f,.70f); 
+		//Color heatbedColor = new Color(0.5f, 0.5f, 0.5f); 
+	    Color heatbedColor = new Color(Base.preferences.getInt("ui.heatbedcolor", 0));		
+		Color3f heatbedColor3f = new Color3f(heatbedColor.getRed()/255f, heatbedColor.getGreen()/255f, heatbedColor.getBlue()/255f);
+		
 		ColoringAttributes ca = new ColoringAttributes();
-		ca.setColor(color);
+		ca.setColor(heatbedColor3f);
 		Appearance solid = new Appearance();
 		solid.setTransparencyAttributes(new TransparencyAttributes(TransparencyAttributes.NICEST,0.13f));
 		//solid.setMaterial(m);
@@ -396,7 +399,7 @@ public class PreviewPanel extends JPanel {
 	
     public Node makeBaseGrid() {
     	if(buildVol instanceof BuildVolume)
-    	{
+    	{	     	
     		Group baseGroup = new Group();
     		double gridSpacing = 10.0; // Dim grid has hash marks at 10mm intervals.
     		// Set up the appearance object for the central crosshairs.
@@ -519,6 +522,8 @@ public class PreviewPanel extends JPanel {
 	}
 	
 	
+	final static Point3d origin = new Point3d(0,0,0);
+	
 	public BranchGroup createSTLScene() {
 		getBuildVolume();
 		// Create the root of the branch graph
@@ -534,6 +539,10 @@ public class PreviewPanel extends JPanel {
 		sceneGroup.addChild(makeBoundingBox());
 		sceneGroup.addChild(makeBackground());
 		sceneGroup.addChild(makeBaseGrid());
+		
+		if(Base.preferences.getBoolean("ui.show_axes", false)) {
+			sceneGroup.addChild(makeAxes(origin));
+		}
 		
 		if(Base.preferences.getBoolean("ui.show_starfield", false)) {
 			sceneGroup.addChild(makeStarField(400, 2));
@@ -558,7 +567,8 @@ public class PreviewPanel extends JPanel {
 		return objRoot;
 	}
 	
-	
+
+
 
 	// These values were determined experimentally to look pretty dang good.
 	final static Vector3d CAMERA_TRANSLATION_DEFAULT = new Vector3d(0,0,290);
