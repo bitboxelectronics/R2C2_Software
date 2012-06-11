@@ -114,7 +114,8 @@ public class ControlPanelWindow extends JFrame implements
 		this.machine = machine;
 //		driver = machine.getDriver();
 		
-		machine.runCommand(new InvalidatePosition());
+		//R2C2 - commented so we keep the last known position for future use
+		//machine.runCommand(new InvalidatePosition());
 
 		// Listen to it-- stop and close if we're in build mode.
 		Base.getMachineLoader().addMachineListener(this);
@@ -206,6 +207,7 @@ public class ControlPanelWindow extends JFrame implements
 
 	protected JComponent createJogPanel() {
 		jogPanel = new JogPanel(machine);
+
 		return jogPanel;
 	}
 
@@ -283,12 +285,14 @@ public class ControlPanelWindow extends JFrame implements
 	}
 	
 	public void windowClosing(WindowEvent e) {
+
 		updateThread.interrupt();
 		pollThread.interrupt();
 	}
 
 	public void windowClosed(WindowEvent e) {
 		synchronized(getClass()) {
+
 			// TODO: add this back in.
 //			machine.removeMachineStateListener(this);
 			if (instance == this) {
