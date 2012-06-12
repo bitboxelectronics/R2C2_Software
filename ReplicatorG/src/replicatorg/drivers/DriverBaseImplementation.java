@@ -247,7 +247,28 @@ public class DriverBaseImplementation implements Driver, DriverQueryInterface{
 	public void invalidatePosition() {
 //		System.err.println("invalidating position.");
 		currentPosition.set(null);
+		
+
 	}
+	
+	/**
+	 * R2C2
+	 * Used to set the axis to their correct value after a homing operation
+	 */
+	public void invalidateAxes(EnumSet<AxisId> home, boolean positive) {
+	
+		Point5d temp = new Point5d(currentPosition.get());
+		
+		for (AxisId axis : home) {
+			temp.setAxis(axis, 0.0);			
+		}
+		
+		currentPosition.lazySet(temp);
+
+	}
+	
+
+	
 	
 	/**
 	 * Drivers should override this method to get the actual position as recorded by the machine.

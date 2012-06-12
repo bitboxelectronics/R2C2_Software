@@ -265,6 +265,9 @@ public class RepRap5DDriver extends SerialDriver implements SerialFifoEventListe
 		// default us to absolute positioning
 		sendCommand("G90", synchronous);
 		sendCommand("G92 X0 Y0 Z0 E0", synchronous);
+		//sendCommand("G28 Z0", synchronous);
+		//sendCommand("G28 Y0", synchronous);
+		//sendCommand("G28 X0", synchronous);
 	}
 
 	public synchronized void initialize() {
@@ -979,9 +982,19 @@ public class RepRap5DDriver extends SerialDriver implements SerialFifoEventListe
 		}
 		sendCommand(buf.toString());
 
-		invalidatePosition();
+		//R2C2
+		//better to set the axis that were homed to zero the invalidate
+		//invalidatePosition();
+		
+		invalidateAxes(axes,positive);
+		
+		
+		
 		super.homeAxes(axes,false,0);
+		
 	}
+
+
 
 	public void delay(long millis) {
 		int seconds = Math.round(millis / 1000);
