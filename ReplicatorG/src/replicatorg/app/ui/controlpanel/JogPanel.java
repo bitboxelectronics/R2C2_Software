@@ -334,6 +334,9 @@ public class JogPanel extends JPanel implements ActionListener, MouseListener
 		DecimalFormatSymbols dfs = DecimalFormatSymbols.getInstance();
 		dfs.setDecimalSeparator('.');
 		positionFormatter = new DecimalFormat("###.##", dfs);
+		
+
+		
 	}
 	
 
@@ -367,7 +370,14 @@ public class JogPanel extends JPanel implements ActionListener, MouseListener
 			if (!continuousJogMode) {
 				AxisId axis = AxisId.valueOf(jogMatch.group(1));
 				boolean positive = jogMatch.group(2).equals("+");
-				current.setAxis(axis, current.axis(axis) + (positive?jogRate:-jogRate));
+				
+				//R2C2: Changes to prenvent the jogger from moving to negative positions
+				//current.setAxis(axis, current.axis(axis) + (positive?jogRate:-jogRate));
+				double max = Math.max( (double)((current.axis(axis) + (positive?jogRate:-jogRate))), 0.0);
+				current.setAxis(axis, max);
+				
+				
+				//Base.logger.fine("New position: "+current.toString());
 				double f = feedrate.axis(axis);
 				// Exception: XY feedrate is assumed to be X feedrate (symmetrical)
 				if (axis.equals(AxisId.Y)) { f = feedrate.axis(AxisId.X); }
