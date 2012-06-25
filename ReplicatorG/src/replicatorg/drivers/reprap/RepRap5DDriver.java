@@ -983,10 +983,11 @@ public class RepRap5DDriver extends SerialDriver implements SerialFifoEventListe
 		sendCommand(buf.toString());
 
 		//R2C2
-		//better to set the axis that were homed to zero the invalidate
-		//invalidatePosition();
+		//better to set the axis that were homed to zero than invalidate
+		invalidatePosition();
 		
-		invalidateAxes(axes,positive);
+		//R2C2 - needs work, this is unstable 
+		//invalidateAxes(axes,positive);
 		
 		
 		

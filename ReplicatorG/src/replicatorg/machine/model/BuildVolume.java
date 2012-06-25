@@ -18,6 +18,20 @@ public class BuildVolume {
 		this.setZ(z);
 	}
 	
+	public int getAxis(AxisId a){
+		
+		switch (a) {
+		case X:
+			return this.x;
+		case Y:
+			return this.y;
+		case Z:
+			return this.z;
+		default:
+			return 0;
+		}
+	}
+	
 	public void setX(int x){
 		this.x = x;
 	}

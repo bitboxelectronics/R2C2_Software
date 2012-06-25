@@ -371,10 +371,12 @@ public class JogPanel extends JPanel implements ActionListener, MouseListener
 				AxisId axis = AxisId.valueOf(jogMatch.group(1));
 				boolean positive = jogMatch.group(2).equals("+");
 				
-				//R2C2: Changes to prenvent the jogger from moving to negative positions
+				//R2C2: Changes to prevent the jogger from moving to negative positions and farther the the build volume allows
 				//current.setAxis(axis, current.axis(axis) + (positive?jogRate:-jogRate));
-				double max = Math.max( (double)((current.axis(axis) + (positive?jogRate:-jogRate))), 0.0);
-				current.setAxis(axis, max);
+				double safety_min = Math.min((double) ((current.axis(axis) + (positive?jogRate:-jogRate))),(double) (machine.getModel().getBuildVolume().getAxis(axis)));
+				double safety_value = Math.max(safety_min, 0.0);
+				
+				current.setAxis(axis, safety_value);
 				
 				
 				//Base.logger.fine("New position: "+current.toString());
@@ -391,7 +393,6 @@ public class JogPanel extends JPanel implements ActionListener, MouseListener
 			// plus communicate this action back to the main window
 		} else if (homeMatch.matches()) {
 			AxisId axis = AxisId.valueOf(homeMatch.group(1));
-			current.setAxis(axis, 0);
 			//double f = feedrate.axis(axis);
 			// Exception: XY feedrate is assumed to be X feedrate (symmetrical)
 			//if (axis.equals(AxisId.Y)) { f = feedrate.axis(AxisId.X); }
@@ -401,6 +402,7 @@ public class JogPanel extends JPanel implements ActionListener, MouseListener
 			EnumSet<AxisId> axes = EnumSet.noneOf(AxisId.class);
 			axes.add(axis);
 			machine.runCommand(new replicatorg.drivers.commands.HomeAxes(axes, LinearDirection.POSITIVE));
+			
 		} else if (s.equals("Zero")) {
 			// "Zero" tells the machine to calibrate its
 			// current position as zero, not to move to its
