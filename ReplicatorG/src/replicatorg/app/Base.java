@@ -35,7 +35,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
-import java.awt.TrayIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -54,6 +53,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -75,7 +77,9 @@ import javax.swing.UIManager;
 
 import replicatorg.app.ui.MainWindow;
 import replicatorg.app.ui.NotificationHandler;
+import replicatorg.drivers.DriverQueryInterface;
 import replicatorg.machine.MachineLoader;
+import replicatorg.machine.MachineInterface;
 import replicatorg.uploader.FirmwareUploader;
 import ch.randelshofer.quaqua.QuaquaManager;
 
@@ -97,12 +101,12 @@ public class Base {
 	/**
 	 * The version number of this edition of replicatorG.
 	 */
-	public static final int VERSION = 27;
+	public static final int VERSION = 37;
 	
 	/**
 	 * The textual representation of this version (4 digits, zero padded).
 	 */
-	public static final String VERSION_NAME = String.format("%04d",VERSION);
+	public static final String VERSION_NAME = String.format("%04d-Beta",VERSION);
 
 	/**
 	 * The machine controller in use.
@@ -112,7 +116,7 @@ public class Base {
 	/**
 	 * The user preferences store.
 	 */
-	static public Preferences preferences = Preferences.userNodeForPackage(Base.class);
+	static public Preferences preferences = getUserPreferences();
 
 	/**
 	*  Simple base data capture logger. So simple, but useful.
@@ -126,25 +130,38 @@ public class Base {
 	public static FileHandler logFileHandler = null;
 	public static String logFilePath = null;
 	
+	
+    /*
+     * expands ~ as per python os.path.expanduser
+     */
+    public static String expanduser(String path) {
+        String user=System.getProperty("user.home");
+
+        return path.replaceFirst("~", user);
+    }
+
+	
 	/**
 	 * Start logging on the given path. If the path is null, stop file logging.
 	 * @param path The path to log messages to
 	 */
 	public static void setLogFile(String path) {
 		boolean useLogFile = Base.preferences.getBoolean("replicatorg.useLogFile",false);
-
-		if (useLogFile && path.equals(logFilePath)) { return; }
+		String explicitPath = expanduser(path);
+		
+		if (useLogFile && explicitPath.equals(logFilePath)) { return; }
 		
 		if (logFileHandler != null) {
 			logger.removeHandler(logFileHandler);
 			logFileHandler = null;
 		}
 		
-		logFilePath = path;
+		logFilePath = explicitPath;
 		
 		if (useLogFile && logFilePath != null && logFilePath.length() > 0) {
 			boolean append = true;
 			try {
+				
 				FileHandler fh = new FileHandler(logFilePath, append);
 				fh.setFormatter(new SimpleFormatter());
 				fh.setLevel(Level.ALL);
@@ -172,45 +189,174 @@ public class Base {
 	 */
 	static public String openedAtStartup;
 
+	/**
+	 * This is the name of the alternate preferences set that this instance of
+	 * ReplicatorG uses. If null, this instance will use the default preferences
+	 * set.
+	 */
+	static private String alternatePrefs = null;
+
+	/**
+	 * Set the name of the alternate preferences to use. This will reload
+	 * the preferences. It must be called only from the main method before
+	 * any preference values are used.
+	 *
+	 * @param name the alternate preferences name.
+	 */
+	public static void setAlternatePrefs(final String name)
+	{
+		alternatePrefs = name;
+		preferences = getUserPreferences();
+	}
+
+	/**
+	 * Get the preferences node for ReplicatorG.
+	 */
+	static Preferences getUserPreferences() {
+		Preferences prefs = Preferences.userNodeForPackage(Base.class);
+		if (alternatePrefs != null) {
+			prefs = prefs.node("alternate/"+alternatePrefs);
+		}
+		return prefs;
+	}
+	
+	static private void moveAll(File source, File target) {
+		try {
+			if (source.isDirectory()) {
+				if (!target.exists() ) {
+					target.mkdir();
+				}
+				for (String s : source.list()) {
+					moveAll(new File(source, s), new File(target, s));
+				}
+				source.delete();
+			}
+			else if (source.isFile()) {
+				source.renameTo(target);
+			}
+		} catch (Exception e) {
+			Base.logger.severe(e.getMessage());
+		}
+	}
+		
+	/**
+	 * Reset the preferences for ReplicatorG to a clean state.
+	 */
 	static public void resetPreferences() {
 		try {
 			Base.preferences.removeNode();
 			Base.preferences.flush();
-			preferences = Preferences.userNodeForPackage(Base.class);
+			preferences = getUserPreferences();
 		} catch (BackingStoreException bse) {
 			bse.printStackTrace();
 		}
+		File userDir = getUserDirectory();
+		try {
+			// Create backup
+			File backupDir = new File(userDir.getParentFile(),".replicatorg-backup-" + Long.toString(System.nanoTime()) );
+			backupDir.mkdir();
+			moveAll(userDir,backupDir);
+		} catch (Exception e) {
+			Base.logger.severe(e.getMessage());
+		}
 	}
+	
+	/**
+	 * Back up the preferences
+	 * @return
+	 */
 	
 	static public String getToolsPath() {
 	    String toolsDir = System.getProperty("replicatorg.toolpath");
 	    if (toolsDir == null || (toolsDir.length() == 0)) {
-		    String path = System.getProperty("user.dir");
-	    	toolsDir = path + File.separator + "tools";
+		    File appDir = Base.getApplicationDirectory();
+	    	toolsDir = appDir.getAbsolutePath() + File.separator + "tools";
 	    }
 	    return toolsDir;
 	}
 	
+	/**
+	 * Get the the user preferences and profiles directory. By default this is
+	 * ~/.replicatorg; if an alternate preferences set is selected, it will
+	 * instead be ~/.replicatorg/alternatePrefs/<i>alternate_prefs_name</i>.
+	 */
 	static public File getUserDirectory() {
-		File dir = new File(System.getProperty("user.home")+File.separator+".replicatorg");
+		String path = System.getProperty("user.home")+File.separator+".replicatorg";
+		if (alternatePrefs != null) { path = path + File.separator + alternatePrefs; }
+		File dir = new File(path);
 		if (!dir.exists()) {
 			dir.mkdirs();
+			if( ! dir.exists() )  { // we failed to create our user dir. Log the failure, try to continue
+				Base.logger.severe("We could not create a user directory at: "+ path );
+				return null; 
+			}
 		}
+
 		return dir;
 	}
 	
+	/** 
+	 * Retrieves the application data directory via OS specific voodoo.
+	 * Defaults to the current directory if no os specific settings exist, 
+	 * @return File object pointing to the OS specific ApplicationsDirectory
+	 */
 	static public File getApplicationDirectory() {
+		if( isMacOS() ) { 
+			try { 
+				File x = new File(".");
+				String baseDir = x.getCanonicalPath();
+				//baseDir = baseDir + "/ReplicatorG.app/Contents/Resources";
+				//Base.logger.severe("OSX AppDir at " + baseDir );
+				//we want to use ReplicatorG.app/Content as our app dir.
+				if(new File(baseDir + "/ReplicatorG.app/Contents/Resources").exists())
+					return new File(baseDir + "/ReplicatorG.app/Contents/Resources");
+				else
+					Base.logger.severe(baseDir + "/ReplicatorG.app not found, using " + baseDir + "/replicatorg/");
+					return new File(baseDir + "/replicatorg");
+				}
+			catch (java.io.IOException e) {
+				// This space intentionally left blank. Fall through.
+			}
+		}
 		return new File(System.getProperty("user.dir"));
 	}
 	
 	static public File getApplicationFile(String path) {
-		return new File(getApplicationDirectory(),path);
+		return new File(getApplicationDirectory(), path);
 	}
 
 	static public File getUserFile(String path) {
 		return getUserFile(path,true);
 	}
 
+	static public File getUserDir(String path) {
+		return getUserDir(path,true);
+	}
+	
+	/**
+	 * Singleton NumberFormat used for parsing and displaying numbers to GUI in the 
+	 * localized format. Use for all non-GCode, numbers output and input.
+	 */
+	static private NumberFormat localNF = NumberFormat.getInstance();
+	static public NumberFormat getLocalFormat() {
+		return localNF;
+	}
+	
+	/** Singleton Gcode NumberFormat: Unsed for writing the correct precision strings
+	 * when generating gcode (minimum one decimal places) using . as decimal separator
+	 */
+	static private NumberFormat gcodeNF;
+	{
+		// We don't use DFS.getInstance here to maintain compatibility with Java 5
+        DecimalFormatSymbols dfs;
+ 	 	gcodeNF = new DecimalFormat("##0.0##");
+ 	 	dfs = ((DecimalFormat)gcodeNF).getDecimalFormatSymbols();
+ 	 	dfs.setDecimalSeparator('.');
+	}
+	static public NumberFormat getGcodeFormat() {
+		return gcodeNF;
+	}
+	
 	/**
 	 * 
 	 * @param path The relative path to the file in the .replicatorG directory
@@ -242,6 +388,32 @@ public class Base {
 		return f;
 	}
 
+	static public File getUserDir(String path, boolean autoCopy) {
+		if (path.contains("..")) {
+			Base.logger.info("Attempted to access parent directory in "+path+", skipping");
+			return null;
+		}
+		// First look in the user's local .replicatorG directory for the path.
+		File f = new File(getUserDirectory(),path);
+		// Make the parent file if not already there
+		File dir = f.getParentFile();
+		if (!dir.exists()) { dir.mkdirs(); }
+		if (autoCopy && !f.exists()) {
+			// Check if there's an application-level version
+			File original = getApplicationFile(path);
+			// If so, copy it over
+			if (original.exists()) {
+				try {
+					Base.copyDir(original,f);
+				} catch (IOException ioe) {
+					Base.logger.log(Level.SEVERE,"Couldn't copy "+path+" to your local .replicatorG directory",f);
+				}
+			}
+		}
+		return f;
+	}
+
+	
 	static public Font getFontPref(String name, String defaultValue) {
 		String s = preferences.get(name,defaultValue);
 		StringTokenizer st = new StringTokenizer(s, ",");
@@ -275,7 +447,7 @@ public class Base {
 	public static MainWindow getEditor() {
 		return editor;
 	}
-	private static NotificationHandler notificationHandler;
+	private static NotificationHandler notificationHandler = null;
 
 	private static final String[] supportedExtensions = {
 			"gcode", "ngc",
@@ -319,19 +491,24 @@ public class Base {
 				    "ReplicatorG");
 		}
 		
+		boolean cleanPrefs = false;
+		
 		// parse command line input
 		for (int i=0;i<args.length;i++) {
-			// grab any opened file from the command line
-			if (supportedExtension(args[i])) {
-				Base.openedAtStartup = args[i];
-			}
-			
-			// Allow for [--debug] [DEBUGLEVEL]
-			if(args[i].equals("--debug")) {
+			if (args[i].equals("--alternate-prefs")) {
+				if((i+1) < args.length) {
+					i++;
+					setAlternatePrefs(args[i]);
+				}
+			} else if (args[i].equals("--clean-prefs")) {
+				cleanPrefs = true;
+			} else if(args[i].equals("--debug")) {
+				// Allow for [--debug] [DEBUGLEVEL]
 				int debugLevelArg = 2;
 				if((i+1) < args.length) {
 					try {
 						debugLevelArg = Integer.parseInt(args[i+1]);
+						i++;
 					} catch (NumberFormatException e) {};
 				}
 				if(debugLevelArg == 0) {
@@ -351,27 +528,14 @@ public class Base {
 					logger.info("Debug level is 'ALL'");
 				}
 			} else if(args[i].startsWith("-")){
-				System.out.println("Usage: ./replicatorg [[--debug] [DEBUGLEVEL]] [filename.stl]");
+				System.out.println("Usage: ./replicatorg [--debug DEBUGLEVEL] [--alternate-prefs ALTERNATE_PREFS_NAME] [--clean-prefs] [filename.stl]");
 				System.exit(1);
+			} else if (supportedExtension(args[i])) {
+				// grab any opened file from the command line
+				Base.openedAtStartup = args[i];
 			}
 		}
 		
-		// Warn about read-only directories
-    	{
-    		File userDir = getUserDirectory();
-    		String header = null;
-    		if (!userDir.exists()) header = new String("Unable to create user directory");
-    		else if (!userDir.canWrite()) header = new String("Unable to write to user directory");
-    		else if (!userDir.isDirectory()) header = new String("User directory must be a directory");
-    		if (header != null) {
-    			Base.showMessage(header, 
-    					"<html><body>ReplicatorG can not write to the directory "+userDir.getAbsolutePath()+".<br>" +
-    					"Some functions of ReplicatorG, like toolpath generation and firmware updates,<br>" +
-    					"require ReplicatorG to write data to this directory.  You should end this<br>"+
-    					"session, change the permissions on this directory, and start again."
-    					);
-    		}
-    	}
 
 		// Use the default system proxy settings
 		System.setProperty("java.net.useSystemProxies", "true");
@@ -397,10 +561,47 @@ public class Base {
 		MRJApplicationUtils.registerOpenDocumentHandler(startupOpen);
 
 		// Create the new application "Base" class.
-		new Base();
+		new Base(cleanPrefs);
 	}
+	/** Check that the correct directories are writeable, and issue warnings. */
+	private void checkDirectories() {
+		// Warn about read-only user directories
+    	{    		
+    		File userDir = getUserDirectory();
+    		String header = null;
+    		if (!userDir.exists()) header = new String("Unable to create user directory");
+    		else if (!userDir.canWrite()) header = new String("Unable to write to user directory");
+    		else if (!userDir.isDirectory()) header = new String("User directory must be a directory");
+    		if (header != null) {
+    			Base.showMessage(header, 
+    					"<html><body>ReplicatorG can not write to the directory "+userDir.getAbsolutePath()+".<br>" +
+    					"Some functions of ReplicatorG, like toolpath generation and firmware updates,<br>" +
+    					"require ReplicatorG to write data to this directory.  You should end this<br>"+
+    					"session, change the permissions on this directory, and start again."
+    					);
+    		}
+    	}
+		// Warn about read-only replicatorG directories
+    	{
+    		File repGDir = getApplicationDirectory();
+    		if (!repGDir.canWrite()) {
+    			Base.showMessage("ReplicatorG directory is read-only",
+    					"<html><body>ReplicatorG can not write to the directory "+repGDir.getPath()+".<br>" +
+    					"You may be running ReplicatorG from an archive or other read-only directory.<br>" +
+    					"Please quit ReplicatorG and extract it to a writeable location, then start again.");
+    		}
 
-	public Base() {
+    	}
+	}
+	/**
+	 * 
+	 * @param cleanPrefs Before starting ReplicatorG proper, erase the user preferences.
+	 */
+	public Base(boolean cleanPrefs) {
+		if (cleanPrefs) {
+			resetPreferences();
+		}
+		
 		// set the look and feel before opening the window
 		try {
 			if (Base.isMacOS()) {
@@ -441,9 +642,14 @@ public class Base {
 		JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 		
 		SwingUtilities.invokeLater(new Runnable() {
-		    private TrayIcon trayIcon;
+//		    private TrayIcon trayIcon;
 
 			public void run() {
+				// default load The Replicator
+				String machine = Base.preferences.get("machine.name", null);
+				if(machine == null)
+					Base.preferences.put("machine.name", "The Replicator Dual");
+				
 				// build the editor object
 				editor = new MainWindow();
 				
@@ -461,15 +667,14 @@ public class Base {
 				});
 				
 				boolean autoconnect = Base.preferences.getBoolean("replicatorg.autoconnect",true);
-				String machineName = preferences.get("machine.name",null);
+				String machineName = preferences.get("machine.name", "");
 				
 				editor.loadMachine(machineName, autoconnect);
 				
 				// show the window
 				editor.setVisible(true);
-				
-				//R2C2:
-				//UpdateChecker.checkLatestVersion(editor);
+				checkDirectories();
+				UpdateChecker.checkLatestVersion(editor);
 		    }
 		});
 
@@ -479,10 +684,15 @@ public class Base {
 		}
 	}
 
+	/** enum for fast/easy OS checking */
 	public enum Platform {
 		WINDOWS, MACOS9, MACOSX, LINUX, OTHER
 	}
-
+	/** enum for fast/easy arch checking */
+	public enum Arch {
+		x86_64, x86, ARM, PPC, OTHER
+	}
+	
 	/**
 	 * Full name of the Java version (i.e. 1.5.0_11). Prior to 0125, this was
 	 * only the first three digits.
@@ -501,11 +711,14 @@ public class Base {
 	 * the preproc.
 	 */
 	public static final float javaVersion = new Float(javaVersionName.substring(0, 3)).floatValue();
+
 	/**
 	 * Current platform in use
 	 */
 	static public Platform platform;
 
+	static public Arch arch; 
+	
 	/**
 	 * Current platform in use.
 	 * <P>
@@ -538,6 +751,18 @@ public class Base {
 			} else {
 				platform = Platform.OTHER;
 			}
+			String aString = System.getProperty("os.arch");
+			if("i386".equals(aString)) 
+				arch = Arch.x86;
+			else if("x86_64".equals(aString) || "amd64".equals(aString) )
+				arch =  Arch.x86_64;
+			else if("universal".equals(aString) || "ppc".equals(aString)) {
+				arch = Arch.OTHER;
+				throw new RuntimeException("Can not use use arch: '" + arch + "'");
+			}
+			
+
+			
 		}
 	}
 
@@ -565,6 +790,13 @@ public class Base {
 		return platform == Platform.LINUX;
 	}
 
+	static public boolean isx86_64(){
+		return arch == Arch.x86_64;
+	}
+	static public boolean isx86(){
+		return arch == Arch.x86;
+	}
+	
 	/**
 	 * Registers key events for a Ctrl-W and ESC with an ActionListener that
 	 * will take care of disposing the window.
@@ -750,6 +982,9 @@ public class Base {
 	 * bummer, but something to notify the user about.
 	 */
 	static public void showMessage(String title, String message) {
+		if (notificationHandler == null) { 
+			notificationHandler = NotificationHandler.Factory.getHandler(null, false);
+		}		
 		notificationHandler.showMessage(title,message);
 	}
 
@@ -757,7 +992,9 @@ public class Base {
 	 * Non-fatal error message with optional stack trace side dish.
 	 */
 	static public void showWarning(String title, String message, Exception e) {
-
+		if (notificationHandler == null) { 
+			notificationHandler = NotificationHandler.Factory.getHandler(null, false);
+		}
 		notificationHandler.showWarning(title, message, e);
 		
 		if (e != null)
@@ -779,8 +1016,8 @@ public class Base {
 	}
 
 	static public String getContents(String what) {
-		String basePath = System.getProperty("user.dir");
-		return basePath + File.separator + what;
+		File appBase = 	Base.getApplicationDirectory();
+		return appBase.getAbsolutePath() + File.separator + what;
 	}
 
 	static public String getLibContents(String what) {
@@ -835,8 +1072,11 @@ public class Base {
 			img2.getGraphics().drawImage(image,0,0,null);
 			image = img2;
 		} catch (InterruptedException e) {
+			Base.logger.log(Level.FINE, "Could not load image: "+name, e);
 		} catch (IOException ioe) {
+			Base.logger.log(Level.FINE, "Could not load image: "+name, ioe);
 		} catch (IllegalArgumentException iae) {
+			Base.logger.log(Level.FINE, "Could not load image: "+name, iae);
 		}
 		return image;
 	}
@@ -976,4 +1216,6 @@ public class Base {
 		}
 		return machineLoader;
 	}
+
+
 }
