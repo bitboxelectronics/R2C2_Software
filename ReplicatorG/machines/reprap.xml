@@ -3,12 +3,12 @@
 	<machine experimental="0">
 		<name>RepRap 3D Printer</name>
 		<geometry type="cartesian">
-			<axis id="x" length="150" maxfeedrate="30000" stepspermm="80" endstops="min"/>
-			<axis id="y" length="150" maxfeedrate="30000" stepspermm="80" endstops="min"/>
-			<axis id="z" length="100" maxfeedrate="120" stepspermm="5000" endstops="min"/>
+			<axis id="x" length="200" maxfeedrate="30000" stepspermm="80" endstops="min"/>
+			<axis id="y" length="200" maxfeedrate="30000" stepspermm="80" endstops="min"/>
+			<axis id="z" length="140" maxfeedrate="120" stepspermm="5000" endstops="min"/>
 		</geometry>
 		<tools>
-			<tool name="Stepper-based extruder" type="extruder" material="abs" motor="true" floodcoolant="false" mistcoolant="false" fan="true" valve="false" collet="false" heater="true" stepper_axis="a" motor_steps="1000" heatedplatform="true" />
+			<tool name="Extruder" type="extruder" material="abs" motor="true" floodcoolant="false" mistcoolant="false" fan="true" valve="false" collet="false" heater="true" stepper_axis="a" motor_steps="1000" heatedplatform="true" />
 		</tools>
 		<clamps></clamps>
 		<firmware url="???" autoupgrade="false"></firmware>
