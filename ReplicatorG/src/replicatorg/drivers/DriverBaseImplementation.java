@@ -255,11 +255,12 @@ public class DriverBaseImplementation implements Driver, DriverQueryInterface{
 	 * R2C2
 	 * Used to set the axis to their correct value after a homing operation
 	 */
-	public void invalidateAxes(EnumSet<AxisId> home, boolean positive) {
+	public void invalidateAxes(EnumSet<AxisId> home, boolean positive)throws RetryException {
 		
 		if (home.size()>1){
 			invalidatePosition();
-			return;}
+			return;
+			}
 
 			Point5d temp = new Point5d(currentPosition.get());
 	
@@ -268,7 +269,7 @@ public class DriverBaseImplementation implements Driver, DriverQueryInterface{
 			temp.setAxis(axis, 0.0);			
 		}
 		
-		currentPosition.lazySet(temp);
+		currentPosition.set(temp);
 		
 	}
 	

@@ -206,7 +206,7 @@ public class ExtruderPanel extends JPanel implements FocusListener, ActionListen
 
 			if (t.motorHasEncoder() || t.motorIsStepper()) {
 				// our motor speed vars
-				JLabel label = makeLabel("Motor Speed (RPM)");
+				JLabel label = makeLabel("Motor Speed (mm/60s)");
 				JTextField field = new CallbackTextField(this, "handleTextField", "motor-speed", 9);
 				field.setText(Double.toString(machine.getDriverQueryInterface().getMotorRPM()));
 				add(label);
@@ -283,12 +283,12 @@ public class ExtruderPanel extends JPanel implements FocusListener, ActionListen
 
 		// our temperature fields
 		if (t.hasHeater()) {
-			JLabel targetTempLabel = makeKeyLabel("Target Temperature (C)",targetColor);
+			JLabel targetTempLabel = makeKeyLabel("Extruder Temperature (C)",targetColor);
 			JTextField targetTempField = new CallbackTextField(this, "handleTextField", "target-temp", 9);
 			targetTemperature = machine.getDriverQueryInterface().getTemperatureSetting();
 			targetTempField.setText(Double.toString(targetTemperature));
 
-			JLabel currentTempLabel = makeKeyLabel("Current Temperature (C)",measuredColor);
+			JLabel currentTempLabel = makeKeyLabel("Extruder Temperature (C)",measuredColor);
 			currentTempField = new JTextField("",9);
 			currentTempField.setEnabled(false);
 
@@ -300,12 +300,12 @@ public class ExtruderPanel extends JPanel implements FocusListener, ActionListen
 
 		// our heated platform fields
 		if (t.hasHeatedPlatform()) {
-			JLabel targetTempLabel = makeKeyLabel("Platform Target Temp (C)",targetPlatformColor);
+			JLabel targetTempLabel = makeKeyLabel("Bed Temperature (C)",targetPlatformColor);
 			JTextField targetTempField = new CallbackTextField(this, "handleTextField", "platform-target-temp", 9);
 			targetPlatformTemperature = machine.getDriverQueryInterface().getPlatformTemperatureSetting();
 			targetTempField.setText(Double.toString(targetPlatformTemperature));
 
-			JLabel currentTempLabel = makeKeyLabel("Platform Current Temp (C)",measuredPlatformColor);
+			JLabel currentTempLabel = makeKeyLabel("Bed Temperature (C)",measuredPlatformColor);
 			platformCurrentTempField = new JTextField("",9);
 			platformCurrentTempField.setEnabled(false);
 
