@@ -163,7 +163,7 @@ ToolpathGenerator.GeneratorListener
 	//R2C2
 	//static final String WINDOW_TITLE = "ReplicatorG" + " - "
 	//+ Base.VERSION_NAME;
-	static final String WINDOW_TITLE = "ReplicatorG for R2C2 ";
+	static final String WINDOW_TITLE = "ReplicatorG:R2C2 - v".concat(Base.VERSION_NAME);
 
 	final static String MODEL_TAB_KEY = "MODEL";
 	final static String GCODE_TAB_KEY = "GCODE";

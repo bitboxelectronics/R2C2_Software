@@ -1,0 +1,816 @@
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   PLA_3mm_Wade_0.4layer/alterations/end.gcode
+#	renamed:    RepRap-Wade-PLA/alterations/replace.csv -> PLA_3mm_Wade_0.4layer/alterations/replace.csv
+#	new file:   PLA_3mm_Wade_0.4layer/alterations/start.gcode
+#	renamed:    RepRap-Wade-PLA/profiles/comment.csv -> PLA_3mm_Wade_0.4layer/profiles/comment.csv
+#	renamed:    RepRap-Wade-PLA/profiles/cutting.csv -> PLA_3mm_Wade_0.4layer/profiles/cutting.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/bookend.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/bookend.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/bottom.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/bottom.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/carve.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/carve.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/chamber.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/chamber.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/clairvoyance.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/clairvoyance.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/clip.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/clip.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/comb.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/comb.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/comment.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/comment.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/cool.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/cool.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/dimension.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/dimension.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/export.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/export.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/fill.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/fill.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/fillet.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/fillet.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/home.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/home.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/hop.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/hop.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/inset.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/inset.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/interpret.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/interpret.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/jitter.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/jitter.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/lash.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/lash.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/limit.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/limit.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/multiply.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/multiply.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/oozebane.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/oozebane.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/outline.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/outline.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/polyfile.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/polyfile.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/preface.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/preface.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/raft.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/raft.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/reversal.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/reversal.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/scale.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/scale.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/skeinforge.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/skeinforge.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/skeinforge_analyze.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/skeinforge_analyze.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/skeinforge_craft.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/skeinforge_craft.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/skeinforge_help.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/skeinforge_help.csv
+#	new file:   PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/skeinforge_meta.csv
+#	new file:   PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/skeiniso.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/skeinlayer.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/skeinlayer.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/skin.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/skin.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/skirt.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/skirt.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/speed.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/speed.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/splodge.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/splodge.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/statistic.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/statistic.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/stretch.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/stretch.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/synopsis.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/synopsis.csv
+#	new file:   PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/temperature.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/tower.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/tower.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/unpause.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/unpause.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/vectorwrite.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/vectorwrite.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/widen.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/widen.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/wipe.csv -> PLA_3mm_Wade_0.4layer/profiles/extrusion/PLA/wipe.csv
+#	renamed:    RepRap-Wade-PLA/profiles/home.csv -> PLA_3mm_Wade_0.4layer/profiles/home.csv
+#	renamed:    RepRap-Wade-PLA/profiles/interpret.csv -> PLA_3mm_Wade_0.4layer/profiles/interpret.csv
+#	renamed:    RepRap-Wade-PLA/profiles/lash.csv -> PLA_3mm_Wade_0.4layer/profiles/lash.csv
+#	renamed:    RepRap-Wade-PLA/profiles/milling.csv -> PLA_3mm_Wade_0.4layer/profiles/milling.csv
+#	renamed:    RepRap-Wade-PLA/profiles/skeinforge.csv -> PLA_3mm_Wade_0.4layer/profiles/skeinforge.csv
+#	renamed:    RepRap-Wade-PLA/profiles/skeinforge_craft.csv -> PLA_3mm_Wade_0.4layer/profiles/skeinforge_craft.csv
+#	renamed:    RepRap-Wade-PLA/profiles/skeinforge_help.csv -> PLA_3mm_Wade_0.4layer/profiles/skeinforge_help.csv
+#	renamed:    RepRap-Wade-PLA/profiles/skeinforge_profile.csv -> PLA_3mm_Wade_0.4layer/profiles/skeinforge_profile.csv
+#	renamed:    RepRap-Wade-PLA/profiles/extrusion/ABS/skeiniso.csv -> PLA_3mm_Wade_0.4layer/profiles/skeiniso.csv
+#	renamed:    RepRap-Wade-PLA/profiles/skeinlayer.csv -> PLA_3mm_Wade_0.4layer/profiles/skeinlayer.csv
+#	renamed:    RepRap-Wade-PLA/profiles/statistic.csv -> PLA_3mm_Wade_0.4layer/profiles/statistic.csv
+#	renamed:    RepRap-Wade-PLA/profiles/unpause.csv -> PLA_3mm_Wade_0.4layer/profiles/unpause.csv
+#	renamed:    RepRap-Wade-PLA/profiles/winding.csv -> PLA_3mm_Wade_0.4layer/profiles/winding.csv
+#	deleted:    RepRap-Wade-PLA/alterations/end.gcode
+#	deleted:    RepRap-Wade-PLA/alterations/start.gcode
+#	deleted:    RepRap-Wade-PLA/profiles/extrusion/ABS/temperature.csv
+#	deleted:    RepRap-Wade-PLA/profiles/skeiniso.csv
+#
+# Changes not staged for commit:
+#   (use "git add/rm <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   ../../../../build/classes/org/j3d/loaders/collada/ColladaParser$FloatArray.class
+#	modified:   ../../../../build/classes/org/j3d/loaders/collada/ColladaParser.class
+#	modified:   ../../../../build/classes/org/j3d/loaders/stl/LittleEndianConverter.class
+#	modified:   ../../../../build/classes/org/j3d/loaders/stl/STLASCIIParser.class
+#	modified:   ../../../../build/classes/org/j3d/loaders/stl/STLASCIIParser2$ObjectStats.class
+#	modified:   ../../../../build/classes/org/j3d/loaders/stl/STLASCIIParser2.class
+#	modified:   ../../../../build/classes/org/j3d/loaders/stl/STLBinaryParser.class
+#	modified:   ../../../../build/classes/org/j3d/loaders/stl/STLFileReader.class
+#	modified:   ../../../../build/classes/org/j3d/loaders/stl/STLParser.class
+#	modified:   ../../../../build/classes/org/j3d/renderer/java3d/loaders/ColladaLoader.class
+#	modified:   ../../../../build/classes/org/j3d/renderer/java3d/loaders/GTSLoader.class
+#	modified:   ../../../../build/classes/org/j3d/renderer/java3d/loaders/ObjLoader.class
+#	modified:   ../../../../build/classes/org/j3d/renderer/java3d/loaders/STLLoader.class
+#	modified:   ../../../../build/classes/replicatorg/app/Base$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/Base$2$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/Base$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/Base$InitialOpenBehavior.class
+#	modified:   ../../../../build/classes/replicatorg/app/Base$Platform.class
+#	modified:   ../../../../build/classes/replicatorg/app/Base.class
+#	modified:   ../../../../build/classes/replicatorg/app/DataCapture.class
+#	modified:   ../../../../build/classes/replicatorg/app/GCode$gCodeParameter.class
+#	modified:   ../../../../build/classes/replicatorg/app/GCode.class
+#	modified:   ../../../../build/classes/replicatorg/app/GCodeEnumeration$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/GCodeEnumeration.class
+#	deleted:    ../../../../build/classes/replicatorg/app/GCodeParser$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/GCodeParser$DrillCycle.class
+#	modified:   ../../../../build/classes/replicatorg/app/GCodeParser.class
+#	modified:   ../../../../build/classes/replicatorg/app/MRUList.class
+#	modified:   ../../../../build/classes/replicatorg/app/Tweet.class
+#	modified:   ../../../../build/classes/replicatorg/app/TwitterBot.class
+#	modified:   ../../../../build/classes/replicatorg/app/UpdateChecker$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/UpdateChecker$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/UpdateChecker.class
+#	modified:   ../../../../build/classes/replicatorg/app/exceptions/BuildFailureException.class
+#	modified:   ../../../../build/classes/replicatorg/app/exceptions/GCodeException.class
+#	modified:   ../../../../build/classes/replicatorg/app/exceptions/SerialException.class
+#	modified:   ../../../../build/classes/replicatorg/app/exceptions/TimeoutException.class
+#	modified:   ../../../../build/classes/replicatorg/app/exceptions/UnknownSerialPortException.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/CTokenMarker.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/DefaultInputHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$MacroRecorder.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$NonRecordable.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$NonRepeatable.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$Wrapper.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$backspace.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$backspace_word.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$delete.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$delete_word.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$document_end.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$document_home.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$end.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$home.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$insert_break.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$insert_char.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$insert_tab.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$next_char.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$next_line.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$next_page.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$next_word.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$overwrite.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$prev_char.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$prev_line.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$prev_page.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$prev_word.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$repeat.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler$toggle_rect.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/InputHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$AdjustHandler$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$AdjustHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$CaretBlinker.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$CaretUndo.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$ComponentHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$DocumentHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$DragHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$FocusHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$MouseHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$MutableCaretEvent.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea$ScrollLayout.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/JEditTextArea.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/KeywordMap$Keyword.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/KeywordMap.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/PdeKeywords.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/PdeTextAreaDefaults.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/SyntaxDocument.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/SyntaxStyle.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/SyntaxUtilities.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/TextAreaDefaults.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/TextAreaPainter$Highlight.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/TextAreaPainter.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/TextUtilities.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/Token.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/TokenMarker$LineInfo.class
+#	modified:   ../../../../build/classes/replicatorg/app/syntax/TokenMarker.class
+#	modified:   ../../../../build/classes/replicatorg/app/tools/IButtonCrc.class
+#	modified:   ../../../../build/classes/replicatorg/app/tools/XML.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ActionTextField$NotifyingKeyListener.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ActionTextField$StoringFocusListener.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ActionTextField.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/AdvancedPrefs$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/AdvancedPrefs.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/BGPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/BufferedStyledDocument.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/BuildNamingDialog$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/BuildNamingDialog$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/BuildNamingDialog.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/BuildSelectionDialog$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/BuildSelectionDialog$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/BuildSelectionDialog$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/BuildSelectionDialog.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/CallbackTextField.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/CollapsableContainer$Header.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/CollapsableContainer.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/CombineWindow$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/CombineWindow$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/CombineWindow$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/CombineWindow$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/CombineWindow$5.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/CombineWindow.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/DualStrusionWindow$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/DualStrusionWindow$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/DualStrusionWindow$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/DualStrusionWindow$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/DualStrusionWindow$5.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/DualStrusionWindow$6.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/DualStrusionWindow$7.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/DualStrusionWindow.class
+#	deleted:    ../../../../build/classes/replicatorg/app/ui/EditorHeader$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/EditorHeader$TabButton.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/EditorHeader$TabButtonUI.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/EditorHeader.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ExtruderOnboardParameters$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ExtruderOnboardParameters$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ExtruderOnboardParameters$BackoffPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ExtruderOnboardParameters$Commitable.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ExtruderOnboardParameters$ExtraFeaturesPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ExtruderOnboardParameters$PIDPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ExtruderOnboardParameters$RegulatedCoolingFan.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ExtruderOnboardParameters$ThermistorTablePanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ExtruderOnboardParameters.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/FindReplace$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/FindReplace$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/FindReplace$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/FindReplace$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/FindReplace.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/GcodeSaveWindow.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/GcodeSelectWindow.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/GuiConstants.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/InfoPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MachineOnboardParameters$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MachineOnboardParameters$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MachineOnboardParameters$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MachineOnboardParameters.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MachineStatusPanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MachineStatusPanel$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MachineStatusPanel$3.class
+#	deleted:    ../../../../build/classes/replicatorg/app/ui/MachineStatusPanel$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MachineStatusPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainButtonPanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainButtonPanel$MainButton.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainButtonPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$10.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$11.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$12.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$13.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$14.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$15.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$16.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$17.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$18.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$19.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$20.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$21.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$22.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$23.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$24.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$25.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$26.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$27.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$28.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$29.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$30.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$31.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$32.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$33.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$34.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$35.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$36.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$37.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$38.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$39.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$40.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$41.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$42.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$43.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$44.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$45.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$46.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$47.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$5.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$6.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$7.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$8.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$9.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$EstimationThread.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$ExtensionFilter.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$FileOpenActionListener.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$MachineMenuListener.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$RedoAction.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$SerialMenuListener.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$SimulationThread$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$SimulationThread.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$TextAreaPopup$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$TextAreaPopup$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$TextAreaPopup$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$TextAreaPopup$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$TextAreaPopup.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow$UndoAction.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MainWindow.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MessagePanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MessagePanel$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/MessagePanel.class
+#	deleted:    ../../../../build/classes/replicatorg/app/ui/NotificationHandler$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/NotificationHandler$BaseNotificationHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/NotificationHandler$Factory.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/NotificationHandler$JOptionPaneNotificationHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/NotificationHandler$SystemTrayNotifactionHandler$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/NotificationHandler$SystemTrayNotifactionHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/NotificationHandler.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$10.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$11.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$12.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$13.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$14.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$1RadioAction.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$5.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$6.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$7.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$8.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow$9.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/PreferencesWindow.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/RealtimePanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/RealtimePanel$ControlSlider.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/RealtimePanel$SpeedLimit.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/RealtimePanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SavingTextField.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SimulationWindow.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SimulationWindow2D$BuildView.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SimulationWindow2D$GenericRuler$IncrementInfo.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SimulationWindow2D$GenericRuler.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SimulationWindow2D$HorizontalRuler.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SimulationWindow2D$MyComponent.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SimulationWindow2D$VerticalRuler.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SimulationWindow2D.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SplashScreen$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SplashScreen$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SplashScreen$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/SplashScreen.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ToolheadIndexer$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ToolheadIndexer$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/ToolheadIndexer.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/ControlPanelWindow$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/ControlPanelWindow$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/ControlPanelWindow$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/ControlPanelWindow$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/ControlPanelWindow$5.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/ControlPanelWindow$PollThread.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/ControlPanelWindow$UpdateThread.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/ControlPanelWindow.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/ExtruderPanel.class
+#	deleted:    ../../../../build/classes/replicatorg/app/ui/controlpanel/JogPanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/JogPanel$FeedrateControl.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/JogPanel$JogButton.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/controlpanel/JogPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/EditingModel$ReferenceFrame.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/EditingModel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MirrorTool$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MirrorTool$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MirrorTool$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MirrorTool.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool$5.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool$6.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool$7.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool$8.class
+#	deleted:    ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool$9.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/MoveTool.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/PreviewPanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/PreviewPanel$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/PreviewPanel$DragMode.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/PreviewPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/RotationTool$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/RotationTool$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/RotationTool$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/RotationTool$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/RotationTool$5.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/RotationTool$6.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/RotationTool$7.class
+#	deleted:    ../../../../build/classes/replicatorg/app/ui/modeling/RotationTool$8.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/RotationTool.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ScalingTool$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ScalingTool$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ScalingTool$3.class
+#	deleted:    ../../../../build/classes/replicatorg/app/ui/modeling/ScalingTool$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ScalingTool.class
+#	deleted:    ../../../../build/classes/replicatorg/app/ui/modeling/Tool$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/Tool$AxisControl.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/Tool$CoordinateControl.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/Tool.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ToolPanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ToolPanel$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ToolPanel.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ViewTool$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ViewTool$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ViewTool$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ViewTool$4.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/modeling/ViewTool.class
+#	modified:   ../../../../build/classes/replicatorg/app/ui/myFileFilter.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/PythonUtils$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/PythonUtils$Selector.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/PythonUtils$Version.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/PythonUtils.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/StreamLoggerThread.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/SwingPythonSelector$1.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/SwingPythonSelector$2.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/SwingPythonSelector$3.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/SwingPythonSelector.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/serial/ByteFifo.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/serial/Name.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/serial/Serial.class
+#	modified:   ../../../../build/classes/replicatorg/app/util/serial/SerialFifoEventListener.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/BadFirmwareVersionException.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/Driver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/DriverBaseImplementation.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/DriverError.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/DriverFactory.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/DriverQueryInterface.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/EstimationDriver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/MultiTool.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/NullDriver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/OnboardParameters$BackoffParameters.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/OnboardParameters$CommunicationStatistics.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/OnboardParameters$EndstopType.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/OnboardParameters$EstopType.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/OnboardParameters$ExtraFeatures.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/OnboardParameters$PIDParameters.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/OnboardParameters.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/PenPlotter.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/RealtimeControl.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/RetryException.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/SDCardCapture$ResponseCode.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/SDCardCapture.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/SerialDriver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/SerialPassthroughDriver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/SimulationDriver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/StopException$StopType.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/StopException.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/UpdatableFirmware.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/UsesSerial.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/Version.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/VersionException.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/VirtualPrinter.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/AssessState.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/ChangeGearRatio.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/CloseClamp.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/CloseCollet.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/CloseValve.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DataCaptureNote.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/Delay.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DisableAxes.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DisableDrives.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DisableFan.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DisableFloodCoolant.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DisableMistCoolant.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DisableMotor.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DisableSpindle.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DriverCommand$AxialDirection.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DriverCommand$LinearDirection.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/DriverCommand.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/EnableAxes.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/EnableDrives.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/EnableFan.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/EnableFloodCoolant.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/EnableMistCoolant.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/EnableMotor.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/EnableSpindle.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/GCodePassthrough.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/GetPosition.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/HomeAxes.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/Initialize.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/InvalidatePosition.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/OpenClamp.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/OpenCollet.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/OpenValve.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/OptionalHalt.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/ProgramEnd.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/ProgramRewind.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/QueuePoint.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/ReadTemperature.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/RecallHomePositions.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/RequestToolChange.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SelectTool.class
+#	deleted:    ../../../../build/classes/replicatorg/drivers/commands/SetAxisOffset$1.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetAxisOffset.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetChamberTemperature.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetCurrentPosition.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetFeedrate.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetMotorDirection.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetMotorSpeedPWM.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetMotorSpeedRPM.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetPlatformTemperature.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetServo.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetSpindleDirection.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetSpindleRPM.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/SetTemperature.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/StartDataCapture.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/StopDataCapture.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/StoreHomePositions.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/ToggleAutomatedBuildPlatform.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/UnconditionalHalt.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/UpdateManualControl.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/commands/WaitUntilBufferEmpty.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/Makerbot4GAlternateDriver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/Makerbot4GDriver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/MotherboardCommandCode.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/PacketBuilder.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/PacketConstants.class
+#	deleted:    ../../../../build/classes/replicatorg/drivers/gen3/PacketProcessor$1.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/PacketProcessor$CRCException.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/PacketProcessor$PacketState.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/PacketProcessor.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/PacketResponse$ResponseCode.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/PacketResponse.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/Sanguino3GDriver$1ThermistorConverter.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/Sanguino3GDriver$CoolingFanOffsets.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/Sanguino3GDriver$ECBackoffOffsets.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/Sanguino3GDriver$ECThermistorOffsets.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/Sanguino3GDriver$PIDOffsets.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/Sanguino3GDriver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/gen3/ToolCommandCode.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/reprap/ExtrusionUpdater$Direction.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/reprap/ExtrusionUpdater.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/reprap/RepRap5DDriver.class
+#	modified:   ../../../../build/classes/replicatorg/drivers/reprap/SimpleRepRap5DDriver.class
+#	modified:   ../../../../build/classes/replicatorg/dualstrusion/CodeCombination.class
+#	modified:   ../../../../build/classes/replicatorg/dualstrusion/DualStrusionConstruction.class
+#	modified:   ../../../../build/classes/replicatorg/dualstrusion/DualStrusionWorker.class
+#	modified:   ../../../../build/classes/replicatorg/dualstrusion/Layer.class
+#	modified:   ../../../../build/classes/replicatorg/dualstrusion/LayerHelper.class
+#	modified:   ../../../../build/classes/replicatorg/dualstrusion/Toolheads.class
+#	modified:   ../../../../build/classes/replicatorg/machine/Machine$JobTarget.class
+#	modified:   ../../../../build/classes/replicatorg/machine/Machine$RequestType.class
+#	modified:   ../../../../build/classes/replicatorg/machine/Machine.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineCallbackHandler.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineCommand.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineFactory$MachineMap.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineFactory.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineInterface.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineListener.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineLoader.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineProgressEvent.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineState$State.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineState.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineStateChangeEvent.class
+#	deleted:    ../../../../build/classes/replicatorg/machine/MachineThread$1.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineThread$AssessStatusThread.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineThread$Timer.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineThread.class
+#	modified:   ../../../../build/classes/replicatorg/machine/MachineToolStatusEvent.class
+#	deleted:    ../../../../build/classes/replicatorg/machine/builder/Direct$1.class
+#	modified:   ../../../../build/classes/replicatorg/machine/builder/Direct$State.class
+#	modified:   ../../../../build/classes/replicatorg/machine/builder/Direct.class
+#	modified:   ../../../../build/classes/replicatorg/machine/builder/MachineBuilder.class
+#	modified:   ../../../../build/classes/replicatorg/machine/builder/ToLocalFile.class
+#	modified:   ../../../../build/classes/replicatorg/machine/builder/ToRemoteFile.class
+#	modified:   ../../../../build/classes/replicatorg/machine/builder/UsingRemoteFile.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/AxisId.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/BuildVolume.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/ClampModel.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/Endstops.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/ExclusionBox.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/ExclusionZoneModel.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/MachineModel.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/ToolModel.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/WipeBoundary.class
+#	modified:   ../../../../build/classes/replicatorg/machine/model/WipeModel.class
+#	modified:   ../../../../build/classes/replicatorg/model/Build.class
+#	modified:   ../../../../build/classes/replicatorg/model/BuildCode.class
+#	modified:   ../../../../build/classes/replicatorg/model/BuildElement$Listener.class
+#	modified:   ../../../../build/classes/replicatorg/model/BuildElement$Type.class
+#	modified:   ../../../../build/classes/replicatorg/model/BuildElement.class
+#	modified:   ../../../../build/classes/replicatorg/model/BuildModel$UndoEntry.class
+#	modified:   ../../../../build/classes/replicatorg/model/BuildModel.class
+#	modified:   ../../../../build/classes/replicatorg/model/GCodeSource.class
+#	modified:   ../../../../build/classes/replicatorg/model/GCodeSourceCollection$GCodeSourceCollectionIterator.class
+#	modified:   ../../../../build/classes/replicatorg/model/GCodeSourceCollection.class
+#	modified:   ../../../../build/classes/replicatorg/model/JEditTextAreaSource$1.class
+#	modified:   ../../../../build/classes/replicatorg/model/JEditTextAreaSource.class
+#	modified:   ../../../../build/classes/replicatorg/model/StringListSource.class
+#	modified:   ../../../../build/classes/replicatorg/model/j3d/ModelWriter.class
+#	modified:   ../../../../build/classes/replicatorg/model/j3d/StlAsciiWriter.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/MCodePlugin.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/PluginEngine$GCodeIterator.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/PluginEngine.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/PluginEntry.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/PluginLoader.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/TwitterBotPlugin.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ProgressDialog$1.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ProgressDialog$2.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ProgressDialog$3.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ProgressDialog.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/SkeinStep.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGenerator$GeneratorListener$Completion.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGenerator$GeneratorListener.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGenerator.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorFactory$1Skeinforge31.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorFactory$1Skeinforge35.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorFactory$1Skeinforge40.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorFactory$1Skeinforge44.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorFactory$1Skeinforge6.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorFactory$ToolpathGeneratorDescriptor.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorFactory.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorThread$1.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorThread$2.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/ToolpathGeneratorThread.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/ConfigurationDialog$1.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/ConfigurationDialog$2.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/ConfigurationDialog$3.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/ConfigurationDialog$4.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/ConfigurationDialog.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/EditProfileDialog$1.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/EditProfileDialog$2.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/EditProfileDialog$3.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/EditProfileDialog$4.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/EditProfileDialog$5.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/EditProfileDialog$6.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/EditProfileDialog$7.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/EditProfileDialog$8.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/EditProfileDialog.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/PrintOMatic$1.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/PrintOMatic$ComboListener.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/PrintOMatic.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/PrintOMatic5D$1.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/PrintOMatic5D$ComboListener.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/PrintOMatic5D.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/ProfileUtils.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/SkeinforgeGenerator$1.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/SkeinforgeGenerator$Profile.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/SkeinforgeGenerator$SkeinforgeBooleanPreference$1.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/SkeinforgeGenerator$SkeinforgeBooleanPreference.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/SkeinforgeGenerator$SkeinforgeChoicePreference$1.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/SkeinforgeGenerator$SkeinforgeChoicePreference.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/SkeinforgeGenerator$SkeinforgeOption.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/SkeinforgeGenerator$SkeinforgePreference.class
+#	modified:   ../../../../build/classes/replicatorg/plugin/toolpath/skeinforge/SkeinforgeGenerator.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/AbstractFirmwareUploader.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/AvrdudeUploader$StreamDumper.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/AvrdudeUploader.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/FirmwareRetriever$UpdateStatus.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/FirmwareRetriever.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/FirmwareUploader$1.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/FirmwareUploader$2.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/FirmwareUploader.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/FirmwareVersion.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/BoardSelectionPanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/BoardSelectionPanel$BoardListCellRenderer.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/BoardSelectionPanel$BoardListModel.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/BoardSelectionPanel$BoardSelectionListener.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/BoardSelectionPanel.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/FirmwareSelectionPanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/FirmwareSelectionPanel$FirmwareListModel.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/FirmwareSelectionPanel$FirmwareSelectionListener.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/FirmwareSelectionPanel.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/PortSelectionPanel$1.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/PortSelectionPanel$PortSelectionListener.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/PortSelectionPanel$SerialListModel.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/PortSelectionPanel.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/UploaderDialog$1.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/UploaderDialog$2.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/UploaderDialog$3.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/UploaderDialog$4.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/UploaderDialog$5.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/UploaderDialog$6.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/UploaderDialog$State.class
+#	modified:   ../../../../build/classes/replicatorg/uploader/ui/UploaderDialog.class
+#	modified:   ../../../../build/classes/replicatorg/util/Point5d.class
+#	modified:   ../../../../build/jar/ReplicatorG.jar
+#	modified:   ../../../../examples/calibration/20mmbox.stl
+#	modified:   ../../fabmetheus_utilities/__init__.pyc
+#	modified:   ../../fabmetheus_utilities/archive.pyc
+#	modified:   ../../fabmetheus_utilities/euclidean.pyc
+#	modified:   ../../fabmetheus_utilities/fabmetheus_tools/__init__.pyc
+#	modified:   ../../fabmetheus_utilities/fabmetheus_tools/fabmetheus_interpret.pyc
+#	modified:   ../../fabmetheus_utilities/gcodec.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/__init__.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/geometry_tools/__init__.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/geometry_tools/dictionary.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/geometry_tools/face.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/geometry_tools/vertex.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/geometry_utilities/__init__.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/geometry_utilities/evaluate.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/geometry_utilities/evaluate_elements/__init__.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/geometry_utilities/evaluate_elements/setting.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/geometry_utilities/matrix.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/solids/__init__.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/solids/group.pyc
+#	modified:   ../../fabmetheus_utilities/geometry/solids/triangle_mesh.pyc
+#	modified:   ../../fabmetheus_utilities/hidden_scrollbar.pyc
+#	modified:   ../../fabmetheus_utilities/intercircle.pyc
+#	modified:   ../../fabmetheus_utilities/settings.pyc
+#	modified:   ../../fabmetheus_utilities/vector3.pyc
+#	modified:   ../../fabmetheus_utilities/vector3index.pyc
+#	modified:   ../../fabmetheus_utilities/xml_simple_reader.pyc
+#	modified:   ../../fabmetheus_utilities/xml_simple_writer.pyc
+#	modified:   ../__init__.pyc
+#	modified:   PLA_3mm_Wade_0.4layer/alterations/end.gcode
+#	modified:   PLA_3mm_Wade_0.4layer/alterations/start.gcode
+#	deleted:    PLA_3mm_wade_0.4layer/alterations/end.gcode
+#	deleted:    PLA_3mm_wade_0.4layer/alterations/replace.csv
+#	deleted:    PLA_3mm_wade_0.4layer/alterations/start.gcode
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/comment.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/cutting.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/bookend.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/bottom.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/carve.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/chamber.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/clairvoyance.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/clip.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/comb.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/comment.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/cool.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/dimension.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/export.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/fill.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/fillet.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/home.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/hop.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/inset.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/interpret.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/jitter.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/lash.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/limit.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/multiply.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/oozebane.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/outline.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/polyfile.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/preface.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/raft.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/reversal.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/scale.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/skeinforge.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/skeinforge_analyze.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/skeinforge_craft.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/skeinforge_help.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/skeinforge_meta.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/skeiniso.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/skeinlayer.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/skin.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/skirt.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/speed.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/splodge.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/statistic.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/stretch.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/synopsis.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/temperature.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/tower.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/unpause.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/vectorwrite.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/widen.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/extrusion/PLA/wipe.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/home.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/interpret.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/lash.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/milling.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/skeinforge.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/skeinforge_craft.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/skeinforge_help.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/skeinforge_profile.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/skeiniso.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/skeinlayer.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/statistic.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/unpause.csv
+#	deleted:    PLA_3mm_wade_0.4layer/profiles/winding.csv
+#	modified:   ../skeinforge_plugins/analyze.pyc
+#	modified:   ../skeinforge_plugins/craft.pyc
+#	modified:   ../skeinforge_plugins/craft_plugins/chamber.pyc
+#	modified:   ../skeinforge_plugins/craft_plugins/dimension.pyc
+#	modified:   ../skeinforge_plugins/help.pyc
+#	modified:   ../skeinforge_plugins/meta.pyc
+#	modified:   ../skeinforge_plugins/profile.pyc
+#	modified:   ../skeinforge_plugins/profile_plugins/cutting.pyc
+#	modified:   ../skeinforge_plugins/profile_plugins/extrusion.pyc
+#	modified:   ../skeinforge_plugins/profile_plugins/milling.pyc
+#	modified:   ../skeinforge_plugins/profile_plugins/winding.pyc
+#	modified:   ../skeinforge_utilities/__init__.pyc
+#	modified:   ../skeinforge_utilities/skeinforge_analyze.pyc
+#	modified:   ../skeinforge_utilities/skeinforge_craft.pyc
+#	modified:   ../skeinforge_utilities/skeinforge_help.pyc
+#	modified:   ../skeinforge_utilities/skeinforge_meta.pyc
+#	modified:   ../skeinforge_utilities/skeinforge_polyfile.pyc
+#	modified:   ../skeinforge_utilities/skeinforge_profile.pyc
+#	modified:   ../../../../src/replicatorg/app/ui/MainWindow.java
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	../../../../../.metadata/
+#	../../../../.classpath
+#	../../../../.metadata/
+#	../../../../.project
+#	../../../../.swp
+#	../../../../R2C2debug001.log
+#	../../../../R2C2debug001.log.1
+#	../../../../R2C2debug001.log.lck
+#	../../../../build/classes/replicatorg/app/Base$Arch.class
+#	../../../../build/classes/replicatorg/app/Untitled 1
+#	../../../../build/classes/replicatorg/app/syntax/readme.txt
+#	../../../../dist-all/
+#	../../../../doc/
+#	../../../../examples/android-magnet-cas.stl
+#	../../../../examples/melody01.gcode
+#	../../../../out
+#	out
+#	../../../../src/replicatorg/app/Untitled 1

@@ -1,0 +1,9 @@
+Format is tab separated skeinforge settings.
+_Name                          	Value
+WindowPosition	831+32
+Open File for Skeinforge	/home/hb/3d_print/cube_50x20x5.stl
+analyze	False
+craft	True
+help	False
+meta	False
+profile	False
