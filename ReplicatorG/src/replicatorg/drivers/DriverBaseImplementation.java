@@ -307,7 +307,7 @@ public class DriverBaseImplementation implements Driver, DriverQueryInterface{
 				try {
 					// Try to reconcile our position. 
 					Point5d newPoint = reconcilePosition();
-					currentPosition.set(newPoint);
+					//currentPosition.set(newPoint);
 					
 				} catch (RetryException e) {
 					Base.logger.severe("Attempt to reconcile machine position failed, due to Retry Exception");

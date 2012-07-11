@@ -103,7 +103,7 @@ public class Base {
 	 */
 	public static final int VERSION = 38;
 	
-	public static final String VERSION_R2C2 = "0.5b"; 
+	public static final String VERSION_R2C2 = "0.6b"; 
 	
 	/**
 	 * The textual representation of this version (4 digits, zero padded).

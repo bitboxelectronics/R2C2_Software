@@ -114,8 +114,7 @@ public class ControlPanelWindow extends JFrame implements
 		this.machine = machine;
 //		driver = machine.getDriver();
 		
-		//R2C2 - commented so we keep the last known position for future use
-		//machine.runCommand(new InvalidatePosition());
+		machine.runCommand(new InvalidatePosition());
 
 		// Listen to it-- stop and close if we're in build mode.
 		Base.getMachineLoader().addMachineListener(this);
