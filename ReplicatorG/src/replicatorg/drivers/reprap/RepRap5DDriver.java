@@ -971,7 +971,31 @@ public class RepRap5DDriver extends SerialDriver implements SerialFifoEventListe
 
 		super.setCurrentPosition(p);
 	}
+	
+	@Override
+	public void storeHomePositions(EnumSet<AxisId> axes) throws RetryException {
+		//debuging
+		
+		Point5d targetPosition = super.getCurrentPosition(false);
+				
+		Base.logger.info("Storing Home Position "+axes.toString()+currentPosition.get().toString());
+		StringBuffer buf = new StringBuffer("M605");
+			
+		for (AxisId axis : axes)
+		{
+			buf.append(" "+axis+targetPosition.axis(axis));
+		}
+		Base.logger.info("Storing Home Position:"+buf);
+		sendCommand(buf.toString());
+		
+		
+		super.setCurrentPosition(getCurrentPosition(true));
 
+
+	}
+
+	
+	
 	@Override
 	public void homeAxes(EnumSet<AxisId> axes, boolean positive, double feedrate) throws RetryException {
 		Base.logger.info("homing "+axes.toString());
@@ -984,14 +1008,15 @@ public class RepRap5DDriver extends SerialDriver implements SerialFifoEventListe
 
 		//R2C2
 		//better to set the axis that were homed to zero than invalidate
-		invalidatePosition();
 		
+		invalidatePosition();
 		//R2C2 - needs work, this is unstable 
 		//invalidateAxes(axes,positive);
-		
-		
+				
 		
 		super.homeAxes(axes,false,0);
+		super.setCurrentPosition(getCurrentPosition(true));
+
 		
 	}
 

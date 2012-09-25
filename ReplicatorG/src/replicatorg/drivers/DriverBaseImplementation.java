@@ -247,6 +247,7 @@ public class DriverBaseImplementation implements Driver, DriverQueryInterface{
 	public void invalidatePosition() {
 //		System.err.println("invalidating position.");
 		currentPosition.set(null);
+
 		
 
 	}
