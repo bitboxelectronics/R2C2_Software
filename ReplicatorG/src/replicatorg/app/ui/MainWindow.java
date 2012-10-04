@@ -113,6 +113,7 @@ import replicatorg.app.syntax.PdeKeywords;
 import replicatorg.app.syntax.PdeTextAreaDefaults;
 import replicatorg.app.syntax.SyntaxDocument;
 import replicatorg.app.syntax.TextAreaPainter;
+import replicatorg.app.ui.controlpanel.CalibrationWindow;
 import replicatorg.app.ui.controlpanel.ControlPanelWindow;
 import replicatorg.app.ui.modeling.PreviewPanel;
 import replicatorg.app.util.PythonUtils;
@@ -223,6 +224,7 @@ ToolpathGenerator.GeneratorListener
 	JMenuItem stopItem;
 	JMenuItem pauseItem;
 	JMenuItem controlPanelItem;
+	JMenuItem calibrationWindowItem;
 	JMenuItem buildMenuItem;
 	JMenuItem profilesMenuItem;
 	JMenuItem dualstrusionItem;
@@ -1147,6 +1149,17 @@ ToolpathGenerator.GeneratorListener
 		reloadSerialMenu();
 		menu.add(serialMenu);
 
+		
+		//R2C2 Calibration Window
+		calibrationWindowItem = new JMenuItem("Calibration");
+		calibrationWindowItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				handleCalibrationWindow();
+			}
+		});
+		menu.add(calibrationWindowItem);
+		
+		
 		controlPanelItem = new JMenuItem("Control Panel", 'C');
 		controlPanelItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,ActionEvent.CTRL_MASK));
 		controlPanelItem.addActionListener(new ActionListener() {
@@ -1620,6 +1633,22 @@ ToolpathGenerator.GeneratorListener
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		window.setBounds((screen.width - w) / 2, (screen.height - h) / 2, w, h);
 		window.setVisible(true);
+	}
+	
+	public void handleCalibrationWindow() {
+		if (!machineLoader.isLoaded()) {
+			JOptionPane.showMessageDialog(
+					this,
+					"ReplicatorG can't connect to your machine.\nTry checking your settings and resetting your machine.",
+					"Can't find machine", JOptionPane.ERROR_MESSAGE);
+		} else {
+			CalibrationWindow window = CalibrationWindow.getCalibrationWindow(machineLoader.getMachine());
+			if (window != null) {
+				window.pack();
+				window.setVisible(true);
+				window.toFront();
+			}
+		}
 	}
 
 	public void handleControlPanel() {
