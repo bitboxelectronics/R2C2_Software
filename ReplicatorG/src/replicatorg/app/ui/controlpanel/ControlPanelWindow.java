@@ -57,12 +57,9 @@ import net.miginfocom.swing.MigLayout;
 import replicatorg.app.Base;
 import replicatorg.app.ui.controlpanel.ExtruderPanel;
 import replicatorg.app.ui.controlpanel.JogPanel;
-import replicatorg.drivers.commands.DriverCommand;
-import replicatorg.drivers.commands.GetPosition;
 import replicatorg.drivers.commands.HomeAxes;
 import replicatorg.drivers.commands.InvalidatePosition;
 import replicatorg.drivers.commands.DriverCommand.LinearDirection;
-import replicatorg.drivers.commands.StoreHomePositions;
 import replicatorg.machine.MachineInterface;
 import replicatorg.machine.MachineListener;
 import replicatorg.machine.MachineProgressEvent;
@@ -72,7 +69,6 @@ import replicatorg.machine.MachineToolStatusEvent;
 import replicatorg.machine.model.AxisId;
 import replicatorg.machine.model.Endstops;
 import replicatorg.machine.model.ToolModel;
-import replicatorg.util.Point5d;
 
 public class ControlPanelWindow extends JFrame implements
 		ChangeListener, WindowListener,
@@ -118,7 +114,8 @@ public class ControlPanelWindow extends JFrame implements
 		this.machine = machine;
 //		driver = machine.getDriver();
 		
-		machine.runCommand(new GetPosition());
+		//R2C2 - commented so we keep the last known position for future use
+		//machine.runCommand(new InvalidatePosition());
 
 		// Listen to it-- stop and close if we're in build mode.
 		Base.getMachineLoader().addMachineListener(this);
@@ -166,18 +163,6 @@ public class ControlPanelWindow extends JFrame implements
 		});
 		return item;
 	}
-	
-
-	
-	private JMenuItem setupOffesetAxis(String name,final EnumSet<AxisId> axes,final boolean positive) {
-		JMenuItem item = new JMenuItem(name);
-		item.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				machine.runCommand(new StoreHomePositions(axes));
-			}
-		});
-		return item;
-	}
 
 	protected JMenuBar createMenuBar() {
 		JMenuBar bar = new JMenuBar();
@@ -196,16 +181,6 @@ public class ControlPanelWindow extends JFrame implements
 					homeMenu.add(makeHomeItem("Home "+axis.name()+" to maximum",EnumSet.of(axis),true));
 			}
 		}
-		
-		//R2C2: Calibration Menu: Set Home Position
-		JMenu calibrationMenu = new JMenu("Calibration");
-		Boolean direction = ((Endstops)(machine.getDriver().getMachine().getEndstops(AxisId.Z))).hasMin;
-		calibrationMenu.add(setupOffesetAxis("Set Z offset to current position",EnumSet.of(AxisId.Z), !direction));
-		bar.add(calibrationMenu);
-		
-	//	homeMenu.add(makeHomeItem("Home "+axis.name()+" to minimum",EnumSet.of(axis),false));
-
-		
 		
 		// These homing options can be dangerous on some machines, especially ones that require sequential
 		// homes.  We'll leave them out until we can improve the safety of these operations.
